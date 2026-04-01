@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, height=device-height, viewport-fit=cover">
+    <title>EcoRefill | Create Zero-Waste Account</title>
+    <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=64&h=64&fit=crop">
+    <script src="tailwind.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Light mode (default) */
+        :root {
+            --bg-primary: #FFFFFF;
+            --text-primary: #111111;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --leaf-green: #4CAF50;
+        }
+        
+        /* Dark mode */
+        .dark {
+            --bg-primary: #0F0F0F;
+            --text-primary: #F5F5F5;
+            --card-bg: #1F1F1F;
+            --border-color: #2A2A2A;
+        }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+        }
+        
+        /* Main wrapper - fixed fullscreen, no scroll */
+        .app-wrapper {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Logo in Top Left Corner - with proper spacing */
+        .logo-header {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 1000;
+        }
+        
+        [dir="rtl"] .logo-header {
+            left: auto;
+            right: 24px;
+        }
+        
+        /* Responsive adjustments for mobile */
+        @media (max-width: 768px) {
+            .logo-header {
+                top: 20px;
+                left: 20px;
+            }
+            [dir="rtl"] .logo-header {
+                left: auto;
+                right: 20px;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .logo-header {
+                top: 16px;
+                left: 16px;
+            }
+            [dir="rtl"] .logo-header {
+                left: auto;
+                right: 16px;
+            }
+        }
+        
+        /* Brand colors - matching index.html */
+        .logo-icon, .logo-text {
+            color: #4CAF50 !important;
+        }
+        
+        .logo-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+            background: rgba(76, 175, 80, 0.1);
+            padding: 8px 16px;
+            border-radius: 48px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+        
+        .logo-brand:hover {
+            transform: scale(1.02);
+            background: rgba(76, 175, 80, 0.15);
+        }
+        
+        /* Fixed Controls - Top Right Corner - with proper spacing */
+        .fixed-controls {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+            display: flex;
+            gap: 12px;
+        }
+        
+        [dir="rtl"] .fixed-controls {
+            right: auto;
+            left: 24px;
+        }
+        
+        /* Responsive adjustments for mobile */
+        @media (max-width: 768px) {
+            .fixed-controls {
+                top: 20px;
+                right: 20px;
+                gap: 10px;
+            }
+            [dir="rtl"] .fixed-controls {
+                right: auto;
+                left: 20px;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .fixed-controls {
+                top: 16px;
+                right: 16px;
+                gap: 8px;
+            }
+            [dir="rtl"] .fixed-controls {
+                right: auto;
+                left: 16px;
+            }
+        }
+        
+        .control-btn-circle {
+            background: rgba(76, 175, 80, 0.2);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            padding: 8px 14px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .dark .control-btn-circle {
+            background: rgba(76, 175, 80, 0.25);
+            border-color: rgba(76, 175, 80, 0.4);
+        }
+        
+        .control-btn-circle:hover {
+            background: rgba(76, 175, 80, 0.4);
+            transform: scale(1.02);
+        }
+        
+        @media (max-width: 640px) {
+            .control-btn-circle {
+                padding: 6px 12px;
+                font-size: 11px;
+                gap: 4px;
+            }
+        }
+        
+        /* Content area - perfectly centered with no top gap */
+        .content-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+            padding: 0;
+            margin: 0;
+        }
+        
+        /* Register Card Styles */
+        .register-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            max-width: 460px;
+            width: 100%;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Desktop specific spacing - ensure no top gap */
+        @media (min-width: 1024px) {
+            .content-area {
+                margin-top: 0;
+                padding-top: 0;
+            }
+            .register-card {
+                margin-top: -20px;
+            }
+        }
+        
+        /* Tablet adjustments */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .content-area {
+                margin-top: 0;
+            }
+            .register-card {
+                margin-top: -10px;
+            }
+        }
+        
+        /* Mobile adjustments */
+        @media (max-width: 767px) {
+            .content-area {
+                align-items: center;
+                padding: 0 12px;
+            }
+            .register-card {
+                margin: 0 auto;
+                width: 100%;
+            }
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background-color: #4CAF50;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #3d8b40;
+            transform: translateY(-1px);
+        }
+        
+        /* RTL Support */
+        [dir="rtl"] { 
+            text-align: right; 
+            direction: rtl; 
+        }
+        
+        /* Animation */
+        @keyframes fadeSlideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        .fade-slide-up {
+            animation: fadeSlideUp 0.6s ease-out;
+        }
+        
+        /* Link styles */
+        a {
+            transition: color 0.2s ease;
+        }
+        
+        /* Icon positioning */
+        .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        
+        [dir="rtl"] .input-icon {
+            left: auto;
+            right: 12px;
+        }
+        
+        [dir="rtl"] .pl-9 {
+            padding-left: 0.75rem;
+            padding-right: 2rem;
+        }
+        
+        /* Custom checkbox styling */
+        .custom-checkbox:checked {
+            background-color: #4CAF50;
+            border-color: #4CAF50;
+        }
+        
+        /* Ensure no scrollbars appear */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Decorative background pattern */
+        .bg-pattern {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .bg-pattern::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.03) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -150px;
+            right: -150px;
+        }
+        
+        .bg-pattern::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.03) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -200px;
+            left: -200px;
+        }
+        
+        .dark .bg-pattern::before,
+        .dark .bg-pattern::after {
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.08) 0%, transparent 70%);
+        }
+        
+        /* Password strength indicator */
+        .strength-bar {
+            height: 3px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            margin-top: 5px;
+        }
+        
+        .strength-weak {
+            width: 33%;
+            background: #ef4444;
+        }
+        
+        .strength-medium {
+            width: 66%;
+            background: #f59e0b;
+        }
+        
+        .strength-strong {
+            width: 100%;
+            background: #4CAF50;
+        }
+        
+        /* Tightened spacing classes */
+        .tight-space > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .form-group {
+            margin-bottom: 0.75rem;
+        }
+        
+        label {
+            margin-bottom: 0.25rem;
+            font-size: 0.8rem;
+        }
+        
+        /* Social buttons tightened */
+        .social-btn {
+            padding: 8px 12px;
+            font-size: 0.85rem;
+        }
+        
+        /* Ensure perfect centering */
+        .centered-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+        }
+    </style>
+    <script>
+        tailwind.config = { 
+            darkMode: 'class', 
+            theme: { 
+                extend: { 
+                    colors: { 
+                        primary: '#4CAF50', 
+                        sage: '#4CAF50', 
+                        wood: '#E6D5B8' 
+                    } 
+                } 
+            } 
+        }
+    </script>
+</head>
+<body>
+
+<div class="app-wrapper">
+    <!-- Decorative Background Pattern -->
+    <div class="bg-pattern"></div>
+    
+    <!-- Logo in Top Left Corner -->
+    <div class="logo-header">
+        <a href="index.html" class="logo-brand">
+            <i data-lucide="droplets" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 logo-icon"></i>
+            <span class="text-lg sm:text-xl md:text-2xl font-black tracking-tight">
+                <span class="logo-text">Eco</span><span class="logo-text">Refill</span>
+            </span>
+        </a>
+    </div>
+
+    <!-- Fixed Controls - Top Right Corner -->
+    <div class="fixed-controls">
+        <button onclick="toggleDirection()" class="control-btn-circle" id="dirToggleBtn">
+            <i data-lucide="arrow-left-right" class="w-3.5 h-3.5"></i>
+            <span id="dirTextFixed">LTR</span>
+        </button>
+        <button onclick="toggleTheme()" class="control-btn-circle">
+            <i data-lucide="moon" class="w-3.5 h-3.5 dark:hidden"></i>
+            <i data-lucide="sun" class="w-3.5 h-3.5 hidden dark:block text-yellow-400"></i>
+            <span class="dark:hidden">Dark</span>
+            <span class="hidden dark:inline">Light</span>
+        </button>
+    </div>
+
+    <!-- Main Content Area - Perfectly Centered with no top gap -->
+    <div class="content-area">
+        <div class="fade-slide-up w-full max-w-md px-4">
+            <!-- Register Card -->
+            <div class="register-card rounded-2xl shadow-2xl p-5 sm:p-6">
+                <div class="text-center mb-4">
+                    <div class="inline-flex p-2 rounded-full bg-[#4CAF50]/10 mb-3">
+                        <i data-lucide="user-plus" class="w-7 h-7 text-[#4CAF50]"></i>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight" style="color: #4CAF50 !important;">Join the Movement</h2>
+                    <p class="text-gray-500 dark:text-gray-400 mt-1 text-xs">Create your zero-waste account</p>
+                </div>
+                
+                <form id="registerForm" onsubmit="handleRegister(event)" class="tight-space">
+                    <!-- Full Name -->
+                    <div class="form-group">
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300">Full Name</label>
+                        <div class="relative">
+                            <i data-lucide="user" class="input-icon w-3.5 h-3.5 text-gray-400"></i>
+                            <input type="text" id="fullname" required class="input-field pl-9" placeholder="John Doe">
+                        </div>
+                    </div>
+                    
+                    <!-- Email Address -->
+                    <div class="form-group">
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300">Email Address</label>
+                        <div class="relative">
+                            <i data-lucide="mail" class="input-icon w-3.5 h-3.5 text-gray-400"></i>
+                            <input type="email" id="email" required class="input-field pl-9" placeholder="hello@ecorefill.com">
+                        </div>
+                    </div>
+                    
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300">Password</label>
+                        <div class="relative">
+                            <i data-lucide="lock" class="input-icon w-3.5 h-3.5 text-gray-400"></i>
+                            <input type="password" id="password" required class="input-field pl-9" placeholder="Create a strong password" onkeyup="checkPasswordStrength()">
+                        </div>
+                        <div id="strengthBar" class="strength-bar" style="background: var(--border-color); width: 0;"></div>
+                        <p id="strengthText" class="text-xs mt-0.5 text-gray-500 dark:text-gray-400"></p>
+                    </div>
+                    
+                    <!-- Confirm Password -->
+                    <div class="form-group">
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300">Confirm Password</label>
+                        <div class="relative">
+                            <i data-lucide="shield-check" class="input-icon w-3.5 h-3.5 text-gray-400"></i>
+                            <input type="password" id="confirmPassword" required class="input-field pl-9" placeholder="Confirm your password">
+                        </div>
+                    </div>
+                    
+                    <!-- Terms & Conditions -->
+                    <div class="flex items-start gap-2 mt-2">
+                        <input type="checkbox" id="terms" required class="mt-0.5 rounded border-gray-300 text-[#4CAF50] focus:ring-[#4CAF50] custom-checkbox w-3.5 h-3.5">
+                        <label for="terms" class="text-xs text-gray-600 dark:text-gray-400 cursor-pointer leading-tight">
+                            I agree to the <a href="#" class="text-[#4CAF50] font-semibold hover:underline">Terms</a> and 
+                            <a href="#" class="text-[#4CAF50] font-semibold hover:underline">Privacy</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="w-full btn-primary text-white font-bold py-2.5 rounded-xl transition-all duration-200 shadow-md flex items-center justify-center gap-2 group mt-3">
+                        <i data-lucide="user-plus" class="w-4 h-4 group-hover:scale-110 transition"></i>
+                        Create Account
+                    </button>
+                </form>
+                
+                <div class="mt-4 text-center">
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                        Already have an account? 
+                        <a href="login.html" class="text-[#4CAF50] font-bold hover:underline transition">Sign in</a>
+                    </p>
+                </div>
+                
+                <div class="relative my-4">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300 dark:border-gray-700"></div>
+                    </div>
+                    <div class="relative flex justify-center text-xs">
+                        <span class="px-3 text-gray-500 dark:text-gray-400" style="background-color: var(--card-bg);">Or sign up with</span>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="handleSocialSignup('Google')" class="social-btn flex items-center justify-center gap-2 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200">
+                        <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+                        <span class="text-xs font-medium">Google</span>
+                    </button>
+                    <button onclick="handleSocialSignup('Apple')" class="social-btn flex items-center justify-center gap-2 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200">
+                        <i data-lucide="apple" class="w-3.5 h-3.5"></i>
+                        <span class="text-xs font-medium">Apple</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Eco Inspiration Badge -->
+           
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    
+    // Password strength checker
+    function checkPasswordStrength() {
+        const password = document.getElementById('password').value;
+        const strengthBar = document.getElementById('strengthBar');
+        const strengthText = document.getElementById('strengthText');
+        
+        if (!password) {
+            strengthBar.style.width = '0';
+            strengthBar.className = 'strength-bar';
+            strengthText.textContent = '';
+            return;
+        }
+        
+        let strength = 0;
+        
+        // Length check
+        if (password.length >= 8) strength++;
+        if (password.length >= 12) strength++;
+        
+        // Contains numbers
+        if (/\d/.test(password)) strength++;
+        
+        // Contains lowercase and uppercase
+        if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+        
+        // Contains special characters
+        if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength++;
+        
+        // Determine strength level
+        if (strength <= 2) {
+            strengthBar.style.width = '33%';
+            strengthBar.className = 'strength-bar strength-weak';
+            strengthText.textContent = 'Weak';
+            strengthText.style.color = '#ef4444';
+        } else if (strength <= 4) {
+            strengthBar.style.width = '66%';
+            strengthBar.className = 'strength-bar strength-medium';
+            strengthText.textContent = 'Medium';
+            strengthText.style.color = '#f59e0b';
+        } else {
+            strengthBar.style.width = '100%';
+            strengthBar.className = 'strength-bar strength-strong';
+            strengthText.textContent = 'Strong';
+            strengthText.style.color = '#4CAF50';
+        }
+    }
+    
+    // Theme Toggle Function
+    function toggleTheme() { 
+        document.documentElement.classList.toggle('dark'); 
+        localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); 
+        setTimeout(() => lucide.createIcons(), 10);
+    }
+    
+    // Direction Toggle Function (RTL/LTR)
+    function toggleDirection() { 
+        const html = document.documentElement; 
+        const dirTextFixed = document.getElementById('dirTextFixed'); 
+        if (html.dir === 'rtl') { 
+            html.dir = 'ltr'; 
+            if(dirTextFixed) dirTextFixed.innerText = 'LTR'; 
+        } else { 
+            html.dir = 'rtl'; 
+            if(dirTextFixed) dirTextFixed.innerText = 'RTL'; 
+        } 
+        setTimeout(() => { lucide.createIcons(); }, 50); 
+    }
+    
+    // Register Form Handler
+    function handleRegister(event) {
+        event.preventDefault();
+        const fullname = document.getElementById('fullname').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const terms = document.getElementById('terms').checked;
+        
+        // Validation
+        if (!fullname || !email || !password || !confirmPassword) {
+            alert("⚠️ Please fill in all required fields.");
+            return;
+        }
+        
+        if (password !== confirmPassword) {
+            alert("❌ Passwords do not match. Please try again.");
+            return;
+        }
+        
+        if (password.length < 6) {
+            alert("❌ Password must be at least 6 characters long.");
+            return;
+        }
+        
+        if (!terms) {
+            alert("📜 Please agree to the Terms of Service and Privacy Policy to continue.");
+            return;
+        }
+        
+        // Success message
+        const userName = fullname.split(' ')[0];
+        alert(`🎉 Welcome to EcoRefill, ${userName}! 🎉\n\nYour account has been successfully created.\n\nRedirecting to your dashboard...`);
+        
+        // Simulate redirect to index.html
+        window.location.href = "index.html";
+    }
+    
+    // Social Signup Handler
+    function handleSocialSignup(provider) {
+        alert(`🔐 ${provider} signup demo\n\nConnect with ${provider} to create your account.`);
+    }
+    
+    // Load saved theme from localStorage
+    if (localStorage.getItem('theme') === 'dark') { 
+        document.documentElement.classList.add('dark'); 
+    }
+    
+    // Set initial direction text
+    document.addEventListener('DOMContentLoaded', () => { 
+        lucide.createIcons();
+        const dirTextFixed = document.getElementById('dirTextFixed');
+        if(document.documentElement.dir === 'rtl') {
+            if(dirTextFixed) dirTextFixed.innerText = 'RTL';
+        } else {
+            if(dirTextFixed) dirTextFixed.innerText = 'LTR';
+        }
+        
+        // Add keyboard support for Enter key
+        const inputs = document.querySelectorAll('.input-field');
+        inputs.forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if(e.key === 'Enter') {
+                    e.preventDefault();
+                    const form = document.getElementById('registerForm');
+                    if(form) form.dispatchEvent(new Event('submit'));
+                }
+            });
+        });
+        
+        // Live password confirmation check
+        const confirmInput = document.getElementById('confirmPassword');
+        const passwordInput = document.getElementById('password');
+        
+        confirmInput.addEventListener('input', function() {
+            if (this.value && passwordInput.value !== this.value) {
+                this.style.borderColor = '#ef4444';
+            } else if (this.value) {
+                this.style.borderColor = '#4CAF50';
+            } else {
+                this.style.borderColor = 'var(--border-color)';
+            }
+        });
+        
+        passwordInput.addEventListener('input', function() {
+            if (confirmInput.value && this.value !== confirmInput.value) {
+                confirmInput.style.borderColor = '#ef4444';
+            } else if (confirmInput.value) {
+                confirmInput.style.borderColor = '#4CAF50';
+            }
+        });
+    });
+    
+    // Prevent any accidental scrolling
+    window.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+    }, { passive: false });
+    
+    window.addEventListener('wheel', function(e) {
+        e.preventDefault();
+    }, { passive: false });
+    
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'PageUp' || e.key === 'PageDown' || e.key === 'Home' || e.key === 'End') {
+            e.preventDefault();
+        }
+    });
+    
+    // Ensure body remains fixed and no scrollbars appear
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+</script>
+</body>
+</html>

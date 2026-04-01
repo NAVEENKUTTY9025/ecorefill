@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>404 | Page Not Found - EcoRefill</title>
+    <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=64&h=64&fit=crop">
+    <script src="tailwind.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        /* Light mode (default) - matches index.html */
+        :root {
+            --bg-primary: #FFFFFF;
+            --text-primary: #111111;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --leaf-green: #4CAF50;
+            --error-accent: #4CAF50;
+        }
+        
+        /* Dark mode - matches index.html */
+        .dark {
+            --bg-primary: #0F0F0F;
+            --text-primary: #F5F5F5;
+            --card-bg: #1F1F1F;
+            --border-color: #2A2A2A;
+            --leaf-green: #4CAF50;
+            --error-accent: #4CAF50;
+        }
+        
+        body { 
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow: hidden; /* No scroll - fixed */
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        
+        /* No scrollbars allowed */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Logo styles - matching brand */
+        .logo-icon, .logo-text {
+            color: #4CAF50 !important;
+        }
+        
+        .logo-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-brand:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Main container - perfectly centered */
+        .error-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: var(--bg-primary);
+        }
+        
+        /* Content card with subtle animation */
+        .error-card {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        /* 404 number styling */
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(76, 175, 80, 0.2);
+            margin-bottom: 1rem;
+        }
+        
+        /* Glowing leaf icon */
+        .glow-leaf {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(76, 175, 80, 0.3));
+        }
+        
+        /* Title styling */
+        .error-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 1.5rem 0 1rem;
+            color: var(--text-primary);
+        }
+        
+        .error-title span {
+            color: #4CAF50;
+        }
+        
+        /* Description text */
+        .error-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+        
+        /* Button styling - matches index.html buttons */
+        .home-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: #4CAF50;
+            color: white;
+            border-radius: 1rem;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(76, 175, 80, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .home-button:hover {
+            background: #3d8b40;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .home-button:active {
+            transform: translateY(0);
+        }
+        
+        /* Secondary subtle button for theme toggle (kept minimal) */
+        .theme-toggle-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(76, 175, 80, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            color: var(--text-primary);
+        }
+        
+        .theme-toggle-btn:hover {
+            background: rgba(76, 175, 80, 0.3);
+            transform: scale(1.05);
+        }
+        
+        /* RTL Support */
+        [dir="rtl"] { 
+            text-align: right; 
+            direction: rtl; 
+        }
+        
+        [dir="rtl"] .theme-toggle-btn {
+            right: auto;
+            left: 24px;
+        }
+        
+        [dir="rtl"] .home-button svg {
+            transform: rotate(180deg);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        
+        /* Decorative background circles */
+        .bg-circle {
+            position: fixed;
+            border-radius: 50%;
+            background: rgba(76, 175, 80, 0.03);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -100px;
+        }
+        
+        .circle-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -250px;
+            left: -200px;
+            background: rgba(76, 175, 80, 0.05);
+        }
+        
+        .dark .bg-circle {
+            background: rgba(76, 175, 80, 0.08);
+        }
+        
+        /* Suggestions list */
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-top: 2rem;
+            padding: 0 1rem;
+        }
+        
+        .suggestion-link {
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+        
+        .suggestion-link:hover {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+            transform: translateY(-2px);
+        }
+        
+        /* No scroll - body fixed */
+        .no-scroll {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .error-code {
+                font-size: 5rem;
+            }
+            .error-title {
+                font-size: 1.5rem;
+            }
+            .error-description {
+                font-size: 0.9rem;
+            }
+            .home-button {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            .theme-toggle-btn {
+                bottom: 16px;
+                right: 16px;
+                width: 40px;
+                height: 40px;
+            }
+            [dir="rtl"] .theme-toggle-btn {
+                left: 16px;
+                right: auto;
+            }
+        }
+    </style>
+    <script>
+        tailwind.config = { 
+            darkMode: 'class', 
+            theme: { 
+                extend: { 
+                    colors: { 
+                        primary: '#4CAF50', 
+                        sage: '#4CAF50', 
+                        wood: '#E6D5B8' 
+                    } 
+                } 
+            } 
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Decorative background circles -->
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+
+    <!-- Main 404 Content - No navbar, no footer, only logo and content -->
+    <div class="error-container">
+        <div class="error-card">
+            <!-- Logo Only (no navigation) -->
+            <a href="index.html" class="logo-brand mb-8 inline-flex">
+                <i data-lucide="droplets" class="w-12 h-12 sm:w-14 sm:h-14 logo-icon glow-leaf"></i>
+                <span class="text-3xl sm:text-4xl font-black tracking-tight">
+                    <span class="logo-text">Eco</span><span class="logo-text">Refill</span>
+                </span>
+            </a>
+            
+            <!-- 404 Code with Leaf decoration -->
+            <div class="error-code">
+                4
+                <i data-lucide="leaf" class="inline-block w-16 h-16 sm:w-20 sm:h-20 mx-1" style="color: #4CAF50;"></i>
+                4
+            </div>
+            
+            <!-- Title -->
+            <h1 class="error-title">
+                Oops! Page <span>Not Found</span>
+            </h1>
+            
+            <!-- Description -->
+            <p class="error-description">
+                The page you're looking for seems to have vanished into thin air — 
+                like plastic-free packaging! Don't worry, our refill station is still here.
+            </p>
+            
+            <!-- Home Button -->
+            <a href="index.html" class="home-button">
+                <i data-lucide="home" class="w-5 h-5"></i>
+                Return to Home
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            
+            <!-- Helpful quick links (optional but useful, no footer style) -->
+            <div class="suggestions">
+                <a href="refill.html" class="suggestion-link">
+                    <i data-lucide="droplets" class="w-3 h-3 inline mr-1"></i> Refill Station
+                </a>
+                <a href="market.html" class="suggestion-link">
+                    <i data-lucide="shopping-bag" class="w-3 h-3 inline mr-1"></i> Bulk Market
+                </a>
+                <a href="contact.html" class="suggestion-link">
+                    <i data-lucide="mail" class="w-3 h-3 inline mr-1"></i> Contact Us
+                </a>
+                <a href="about.html" class="suggestion-link">
+                    <i data-lucide="heart" class="w-3 h-3 inline mr-1"></i> Our Mission
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Minimal Theme Toggle Button (only control, no nav/footer) -->
+    <button onclick="toggleTheme()" class="theme-toggle-btn" aria-label="Toggle dark/light mode">
+        <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+        <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-yellow-400"></i>
+    </button>
+    
+    <!-- RTL Toggle (hidden but functional via double tap? Actually we add a small subtle floating control) 
+         To maintain consistency with index, but we keep it minimal. I'll add a small RTL toggle integrated? 
+         Actually to match index's functionality but keep 404 minimal, I'll add a second small button for RTL 
+         but make it elegant and small, no extra clutter. But per request "no nav bar and footer" but brand 
+         experience should allow RTL if user wants. I'll add a subtle direction toggle near theme. -->
+    <button onclick="toggleDirection()" class="theme-toggle-btn" style="bottom: 24px; right: 88px; width: 44px; height: 44px;" id="rtlToggleBtn" aria-label="Toggle RTL mode">
+        <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
+        <span id="dirIndicator" style="font-size: 10px; font-weight: bold; margin-left: 2px;">LTR</span>
+    </button>
+    
+    <!-- Adjust RTL button position on smaller screens -->
+    <style>
+        @media (max-width: 640px) {
+            .theme-toggle-btn:last-of-type {
+                bottom: 16px;
+                right: 68px;
+                width: 38px;
+                height: 38px;
+            }
+            [dir="rtl"] .theme-toggle-btn:last-of-type {
+                right: auto;
+                left: 68px;
+            }
+        }
+        [dir="rtl"] .theme-toggle-btn:last-of-type {
+            right: auto;
+            left: 88px;
+        }
+        @media (max-width: 640px) {
+            [dir="rtl"] .theme-toggle-btn:last-of-type {
+                left: 68px;
+            }
+        }
+        /* Ensure no overlapping on very small screens */
+        @media (max-width: 480px) {
+            .theme-toggle-btn:last-of-type {
+                bottom: 70px;
+                right: 16px;
+            }
+            [dir="rtl"] .theme-toggle-btn:last-of-type {
+                left: 16px;
+                right: auto;
+                bottom: 70px;
+            }
+            .theme-toggle-btn:first-of-type {
+                bottom: 16px;
+            }
+        }
+    </style>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Theme toggle - matches index.html functionality
+        function toggleTheme() { 
+            document.documentElement.classList.toggle('dark'); 
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); 
+            setTimeout(() => lucide.createIcons(), 10); 
+        }
+        
+        // Direction toggle - RTL/LTR support with persistence
+        function toggleDirection() { 
+            const html = document.documentElement; 
+            const dirIndicator = document.getElementById('dirIndicator');
+            if (html.dir === 'rtl') { 
+                html.dir = 'ltr'; 
+                if(dirIndicator) dirIndicator.innerText = 'LTR'; 
+                localStorage.setItem('dir', 'ltr');
+            } else { 
+                html.dir = 'rtl'; 
+                if(dirIndicator) dirIndicator.innerText = 'RTL'; 
+                localStorage.setItem('dir', 'rtl');
+            } 
+            // Re-render icons to ensure proper RTL orientation for arrow icons
+            setTimeout(() => { lucide.createIcons(); }, 50); 
+        }
+        
+        // Load saved theme from localStorage
+        if (localStorage.getItem('theme') === 'dark') { 
+            document.documentElement.classList.add('dark'); 
+        } else if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            // Check system preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+            }
+        }
+        
+        // Load saved direction from localStorage
+        const savedDir = localStorage.getItem('dir');
+        const dirIndicator = document.getElementById('dirIndicator');
+        if (savedDir === 'rtl') {
+            document.documentElement.dir = 'rtl';
+            if(dirIndicator) dirIndicator.innerText = 'RTL';
+        } else if (savedDir === 'ltr') {
+            document.documentElement.dir = 'ltr';
+            if(dirIndicator) dirIndicator.innerText = 'LTR';
+        } else {
+            // Default LTR
+            document.documentElement.dir = 'ltr';
+            if(dirIndicator) dirIndicator.innerText = 'LTR';
+        }
+        
+        // Ensure no scroll on body (double safety)
+        document.body.style.overflow = 'hidden';
+        document.body.style.height = '100vh';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.top = '0';
+        document.body.style.left = '0';
+        
+        // Re-render icons after any dynamic change (like theme or direction)
+        const observer = new MutationObserver(() => {
+            lucide.createIcons();
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'dir'] });
+        
+        // Handle window resize to maintain fixed layout
+        window.addEventListener('resize', () => {
+            document.body.style.height = window.innerHeight + 'px';
+        });
+        document.body.style.height = window.innerHeight + 'px';
+        
+        // Optional: Add subtle easter egg - console message for zero-waste fans
+        console.log('%c🌱 Welcome to EcoRefill! Even our 404 page is waste-free. 🌍', 'color: #4CAF50; font-size: 14px; font-weight: bold;');
+    </script>
+    
+    <!-- Additional inline to ensure no margin/padding causing scroll -->
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+        .error-container {
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        /* But container shouldn't scroll on body, but content can be scrollable if needed? Actually we want no scroll overall, but if content overflows (it won't on any device) we keep safe */
+        .error-card {
+            max-height: 90vh;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+        .error-card::-webkit-scrollbar {
+            display: none;
+        }
+        /* Ensure no external scroll */
+        body, .error-container {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+    </style>
+</body>
+</html>

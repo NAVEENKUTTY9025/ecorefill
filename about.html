@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>About Us | EcoRefill - Zero-Waste Grocery & Refill Store</title>
+    <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=64&h=64&fit=crop">
+    <script src="tailwind.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Light mode (default) */
+        :root {
+            --bg-primary: #FFFFFF;
+            --text-primary: #111111;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --nav-bg-solid: #FFFFFF;
+            --footer-bg: #FFFFFF;
+            --footer-text: #4B5563;
+            --leaf-green: #4CAF50;
+        }
+        
+        /* Dark mode */
+        .dark {
+            --bg-primary: #0F0F0F;
+            --text-primary: #F5F5F5;
+            --card-bg: #1F1F1F;
+            --border-color: #2A2A2A;
+            --nav-bg: rgba(26, 26, 26, 0.95);
+            --nav-bg-solid: #1A1A1A;
+            --footer-bg: #0A0A0A;
+            --footer-text: #9CA3AF;
+        }
+        
+        body { 
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+        
+        /* Brand colors */
+        .logo-icon, .logo-text {
+            color: #4CAF50 !important;
+        }
+        
+        .logo-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+        }
+        
+        /* Navigation */
+        nav .backdrop-blur-xl {
+            background-color: var(--nav-bg) !important;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        
+        .dark nav .backdrop-blur-xl {
+            background-color: var(--nav-bg) !important;
+            border-color: rgba(76, 175, 80, 0.25);
+        }
+        
+        .desktop-nav-links { display: none !important; }
+        .desktop-controls-wrapper { display: none !important; }
+        .mobile-menu-btn { display: flex !important; }
+        
+        @media (min-width: 1280px) {
+            .desktop-nav-links { display: flex !important; }
+            .desktop-controls-wrapper { display: flex !important; }
+            .mobile-menu-btn { display: none !important; }
+        }
+        
+        .nav-link {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-primary) !important;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        
+        .dark .nav-link { color: #F5F5F5 !important; }
+        .nav-link:hover, .nav-link.active-page { background-color: #4CAF50 !important; color: white !important; }
+        
+        .desktop-control-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(76, 175, 80, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            color: var(--text-primary);
+            border: none;
+        }
+        
+        .desktop-control-btn:hover { background: rgba(76, 175, 80, 0.4); }
+        
+        footer {
+            background-color: var(--footer-bg) !important;
+            border-top: 1px solid var(--border-color);
+            transition: background-color 0.3s ease;
+        }
+        
+        footer .logo-icon, footer .logo-text { color: #4CAF50 !important; }
+        footer h4 { color: #4CAF50 !important; font-weight: 800; letter-spacing: 0.05em; }
+        footer p, footer li, footer span, footer .text-gray-400 { color: var(--footer-text) !important; }
+        footer a { color: var(--footer-text) !important; transition: color 0.2s ease; }
+        footer a:hover { color: #4CAF50 !important; }
+        footer .border-t { border-color: var(--border-color) !important; }
+        
+        /* RTL Support */
+        [dir="rtl"] {
+            text-align: right;
+            direction: rtl;
+        }
+        
+        [dir="rtl"] .text-left { text-align: right; }
+        [dir="rtl"] .text-right { text-align: left; }
+        [dir="rtl"] .mx-auto { margin-left: auto; margin-right: auto; }
+        [dir="rtl"] .contact-item { flex-direction: row-reverse; }
+        [dir="rtl"] .contact-item i { margin-left: 0.75rem; margin-right: 0; }
+        
+        /* ===== TIMELINE SECTION - PERFECT ALIGNMENT FIX ===== */
+        .journey-timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        /* Vertical line - centered between year and content */
+        .timeline-vertical-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #4CAF50 0%, rgba(76, 175, 80, 0.4) 50%, rgba(76, 175, 80, 0.1) 100%);
+            border-radius: 3px;
+        }
+        
+        /* LTR: line at 120px from left (year column width) */
+        .timeline-vertical-line {
+            left: 120px;
+            right: auto;
+        }
+        
+        /* RTL: line at right side */
+        [dir="rtl"] .timeline-vertical-line {
+            left: auto;
+            right: 120px;
+        }
+        
+        /* Timeline item container */
+        .timeline-item-wrapper {
+            position: relative;
+            display: flex;
+            margin-bottom: 3rem;
+            min-height: 100px;
+        }
+        
+        /* Year column - fixed width */
+        .timeline-year-col {
+            width: 120px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .timeline-year-dot {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .timeline-dot-circle {
+            width: 20px;
+            height: 20px;
+            background: #4CAF50;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.25);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .timeline-year-number {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #4CAF50;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        
+        /* Content column */
+        .timeline-content-col {
+            flex: 1;
+            padding-left: 2rem;
+            padding-right: 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        [dir="rtl"] .timeline-content-col {
+            padding-left: 0;
+            padding-right: 2rem;
+        }
+        
+        .timeline-card {
+            background: var(--card-bg);
+            border-radius: 1.25rem;
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .timeline-card:hover {
+            transform: translateX(4px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.1);
+            border-color: rgba(76, 175, 80, 0.3);
+        }
+        
+        [dir="rtl"] .timeline-card:hover {
+            transform: translateX(-4px);
+        }
+        
+        .timeline-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .timeline-desc {
+            color: #6B7280;
+            line-height: 1.55;
+            font-size: 0.95rem;
+        }
+        
+        .dark .timeline-desc {
+            color: #9CA3AF;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .timeline-year-col {
+                width: 85px;
+            }
+            .timeline-vertical-line {
+                left: 85px;
+            }
+            [dir="rtl"] .timeline-vertical-line {
+                right: 85px;
+            }
+            .timeline-year-number {
+                font-size: 1.35rem;
+            }
+            .timeline-content-col {
+                padding-left: 1.25rem;
+            }
+            [dir="rtl"] .timeline-content-col {
+                padding-right: 1.25rem;
+                padding-left: 0;
+            }
+            .timeline-card {
+                padding: 1rem 1.25rem;
+            }
+            .timeline-title {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .timeline-item-wrapper {
+                flex-direction: column;
+                margin-bottom: 2rem;
+            }
+            .timeline-year-col {
+                width: 100%;
+                margin-bottom: 0.75rem;
+            }
+            .timeline-year-dot {
+                display: flex;
+                align-items: center;
+            }
+            .timeline-content-col {
+                padding-left: 1.75rem;
+                padding-right: 0;
+            }
+            [dir="rtl"] .timeline-content-col {
+                padding-right: 1.75rem;
+                padding-left: 0;
+            }
+            .timeline-vertical-line {
+                left: 20px !important;
+                right: auto !important;
+            }
+            [dir="rtl"] .timeline-vertical-line {
+                left: auto !important;
+                right: 20px !important;
+            }
+        }
+        
+        /* Hero section centering */
+        .hero-full-nature {
+            position: relative;
+            background-image: linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.4) 100%), url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&h=1080&fit=crop');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            isolation: isolate;
+        }
+        
+        .hero-full-nature::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(76, 175, 80, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .hero-content .max-w-3xl {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        
+        .hero-accent {
+            position: absolute;
+            bottom: 10%;
+            right: 5%;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        
+        [dir="rtl"] .hero-accent {
+            right: auto;
+            left: 5%;
+        }
+        
+        @keyframes softRise {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hero-animate {
+            animation: softRise 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+        }
+        
+        .wave-section {
+            background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(76, 175, 80, 0.03) 100%);
+            position: relative;
+        }
+        
+        .stats-grid {
+            background: radial-gradient(circle at 20% 30%, rgba(76, 175, 80, 0.05) 0%, transparent 70%);
+        }
+        
+        .stat-item {
+            border-bottom: 3px solid #4CAF50;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover { transform: translateY(-5px); border-bottom-width: 5px; }
+        
+        .zigzag-section {
+            background: linear-gradient(120deg, rgba(76, 175, 80, 0.02) 0%, rgba(76, 175, 80, 0.08) 100%);
+        }
+        
+        .zigzag-image {
+            border-radius: 60% 40% 50% 50% / 45% 40% 60% 55%;
+        }
+        
+        .parallax-banner {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920&h=600&fit=crop');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .team-showcase {
+            background: var(--bg-primary);
+        }
+        
+        .team-member {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .team-member:hover .member-overlay {
+            transform: translateY(0);
+        }
+        
+        .member-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(0deg, #4CAF50 0%, rgba(76, 175, 80, 0.9) 100%);
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            padding: 1.5rem;
+        }
+        
+        .dropdown-content {
+            display: none;
+            background-color: var(--card-bg) !important;
+            border: 1px solid var(--border-color);
+        }
+        .dropdown-content.show { display: block; }
+        
+        /* Mobile Menu */
+        #mobileMenu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: auto;
+            width: 85%;
+            max-width: 400px;
+            height: 100vh;
+            background-color: var(--card-bg);
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
+            padding: 1.5rem;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.2);
+        }
+        
+        #mobileMenu.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        body.menu-open { overflow: hidden; }
+        
+        .mobile-nav-link {
+            font-size: 14px; font-weight: 600; padding: 12px 16px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: space-between; width: 100%;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            color: var(--text-primary) !important;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: left;
+        }
+        
+        [dir="rtl"] .mobile-nav-link {
+            text-align: right;
+        }
+        
+        .mobile-nav-link.active-mobile { background-color: #4CAF50 !important; color: white !important; }
+        .mobile-submenu {
+            display: none; flex-direction: column; padding-left: 1rem;
+            border-left: 2px solid rgba(76, 175, 80, 0.4);
+        }
+        [dir="rtl"] .mobile-submenu { padding-left: 0; padding-right: 1rem; border-left: none; border-right: 2px solid rgba(76, 175, 80, 0.4); }
+        .mobile-submenu.open { display: flex; }
+        .mobile-submenu a { padding: 12px 16px; border-radius: 8px; color: var(--text-primary) !important; text-decoration: none; font-size: 14px; }
+        
+        .control-btn {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+        
+        .control-btn:hover {
+            background: rgba(76, 175, 80, 0.2);
+        }
+        
+        @media (min-width: 768px) and (max-width: 1279px) {
+            .desktop-nav-links, .desktop-controls-wrapper { display: none !important; }
+            .mobile-menu-btn { display: flex !important; }
+        }
+        
+        .container-custom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        @media (max-width: 640px) {
+            .container-custom {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#4CAF50' } } } }
+    </script>
+</head>
+<body>
+
+    <div id="mobileMenuOverlay" class="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-[100] px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4">
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between backdrop-blur-xl px-4 sm:px-5 py-2 sm:py-3 rounded-xl sm:rounded-2xl border border-sage/30 shadow-lg" style="background-color: var(--nav-bg); transition: background-color 0.3s ease;">
+            <a href="index.html" class="logo-brand flex items-center gap-2">
+                <i data-lucide="droplets" class="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 logo-icon"></i>
+                <span class="text-2xl sm:text-3xl font-black tracking-tight"><span class="logo-text">Eco</span><span class="logo-text">Refill</span></span>
+            </a>
+            
+            <div class="desktop-nav-links items-center gap-1 xl:gap-2">
+                <div class="relative"><button onclick="toggleDropdown('homeMenu', event)" class="nav-link">Home <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i></button>
+                    <div id="homeMenu" class="dropdown-content absolute top-full mt-2 w-40 shadow-xl rounded-lg border overflow-hidden" style="background-color: var(--card-bg);">
+                        <a href="index.html" class="nav-link block px-4 py-2.5 text-xs font-bold hover:bg-[#4CAF50] hover:text-white transition">Home1</a>
+                        <a href="home2.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#4CAF50] hover:text-white transition">Home2</a>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link active-page">About</a>
+                <a href="refill.html" class="nav-link">Refill</a>
+                <a href="market.html" class="nav-link">Market</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="faq.html" class="nav-link">Faq</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            
+            <div class="desktop-controls-wrapper items-center gap-2">
+                <button onclick="toggleDirection()" class="desktop-control-btn">
+                    <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
+                    <span id="dirTextDesktop">LTR</span>
+                </button>
+                <button onclick="toggleTheme()" class="desktop-control-btn">
+                    <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
+                    <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-yellow-400"></i>
+                    <span class="dark:hidden">Dark</span>
+                    <span class="hidden dark:inline">Light</span>
+                </button>
+                <div class="relative">
+                    <button onclick="toggleDropdown('userMenuDesktop', event)" class="desktop-control-btn">
+                        <i data-lucide="user" class="w-4 h-4"></i>
+                        <span>Account</span>
+                        <i data-lucide="chevron-down" class="w-3 h-3"></i>
+                    </button>
+                    <div id="userMenuDesktop" class="dropdown-content absolute right-0 top-full mt-2 w-40 shadow-xl rounded-lg border overflow-hidden z-50" style="background-color: var(--card-bg);">
+                        <a href="login.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#4CAF50] hover:text-white transition">LOGIN</a>
+                        <a href="register.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#4CAF50] hover:text-white transition">SIGNUP</a>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="toggleMobileMenu()" class="mobile-menu-btn p-2 sm:p-2.5 rounded-lg transition" style="background: rgba(76, 175, 80, 0.2); color: var(--text-primary);">
+                <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- MOBILE MENU -->
+    <div id="mobileMenu">
+        <div class="flex justify-between items-center mb-6">
+            <a href="index.html" class="logo-brand flex items-center gap-2">
+                <i data-lucide="droplets" class="w-7 h-7 logo-icon"></i>
+                <span class="text-2xl font-black tracking-tight"><span class="logo-text">Eco</span><span class="logo-text">Refill</span></span>
+            </a>
+            <button onclick="closeMobileMenu()" class="p-2 rounded-full hover:bg-sage/40" style="background: rgba(76, 175, 80, 0.2);">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        <button onclick="toggleMobileSubmenu('mobileHomeSub')" class="mobile-nav-link"><span>Home</span> <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+        <div id="mobileHomeSub" class="mobile-submenu"><a href="index.html">Home1</a><a href="home2.html">Home2</a></div>
+        <a href="about.html" class="mobile-nav-link active-mobile">About</a>
+        <a href="refill.html" class="mobile-nav-link">Refill</a>
+        <a href="market.html" class="mobile-nav-link">Market</a>
+        <a href="gallery.html" class="mobile-nav-link">Gallery</a>
+        <a href="faq.html" class="mobile-nav-link">Faq</a>
+        <a href="blog.html" class="mobile-nav-link">Blog</a>
+        <a href="contact.html" class="mobile-nav-link">Contact</a>
+        <div class="h-px bg-sage/30 my-3"></div>
+        <div class="control-btn" onclick="toggleMobileSubmenu('mobileAuthSub')"><span class="font-semibold text-sm flex items-center gap-2"><i data-lucide="user-circle" class="w-4 h-4"></i> Account</span><i data-lucide="chevron-down" class="w-4 h-4"></i></div>
+        <div id="mobileAuthSub" class="mobile-submenu"><a href="login.html">Login</a><a href="register.html">Sign Up</a></div>
+        <div class="control-btn" onclick="toggleDirectionMobile()"><span class="font-semibold text-sm flex items-center gap-2"><i data-lucide="arrow-left-right" class="w-4 h-4"></i> RTL Mode</span><span id="mobileDirText" class="text-xs font-bold px-2 py-1 rounded">LTR</span></div>
+        <div class="control-btn" onclick="toggleTheme()"><span class="font-semibold text-sm flex items-center gap-2"><i data-lucide="moon" class="w-4 h-4 dark:hidden"></i><i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i> Dark Mode</span><span class="text-xs">🌓</span></div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero-full-nature">
+        <div class="hero-content container mx-auto px-6 md:px-8">
+            <div class="max-w-3xl mx-auto hero-animate">
+                <div class="inline-flex items-center gap-2 bg-[#4CAF50]/30 backdrop-blur-sm px-4 py-2 rounded-full text-white border border-white/30 mb-6">
+                    <i data-lucide="leaf" class="w-4 h-4"></i>
+                    <span class="text-xs font-bold tracking-wider uppercase">Since 2020 • Zero Waste Pioneers</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] tracking-tight mb-6 drop-shadow-2xl">
+                    Refill.<br>Reuse.<br><span class="text-[#A5D6A5] border-b-4 border-[#4CAF50]">Revolution.</span>
+                </h1>
+                <p class="text-white/95 text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed font-medium">We're not just a store — we're a movement. Join thousands of changemakers eliminating plastic, one refill at a time.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                    <a href="#journey" class="inline-flex items-center gap-2 px-8 py-4 bg-[#4CAF50] text-white rounded-full font-bold text-lg hover:bg-[#3d8b40] transition-all shadow-xl">Our Journey <i data-lucide="arrow-right" class="w-5 h-5"></i></a>
+                    <a href="#impact" class="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white/20 transition-all">See Impact <i data-lucide="trending-up" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-accent"><i data-lucide="leaf" class="w-32 h-32 text-white/20"></i></div>
+    </section>
+
+    <!-- TIMELINE JOURNEY SECTION - PERFECT ALIGNMENT -->
+    <section id="journey" class="wave-section py-24">
+        <div class="container-custom">
+            <div class="text-center mb-16">
+                <i data-lucide="clock" class="w-14 h-14 text-[#4CAF50] mx-auto mb-4"></i>
+                <h2 class="text-3xl md:text-4xl font-extrabold" style="color: var(--text-primary);">The Journey to Zero Waste</h2>
+                <div class="w-24 h-1 bg-[#4CAF50] mx-auto mt-4 rounded-full"></div>
+                <p class="text-gray-500 dark:text-gray-400 mt-4">From a small refill station to a movement — our milestones</p>
+            </div>
+            
+            <div class="journey-timeline">
+                <!-- Vertical line (position controlled by CSS) -->
+                <div class="timeline-vertical-line"></div>
+                
+                <!-- 2020 -->
+                <div class="timeline-item-wrapper">
+                    <div class="timeline-year-col">
+                        <div class="timeline-year-dot">
+                            <div class="timeline-dot-circle"></div>
+                            <span class="timeline-year-number">2020</span>
+                        </div>
+                    </div>
+                    <div class="timeline-content-col">
+                        <div class="timeline-card">
+                            <h3 class="timeline-title">The First Refill Station</h3>
+                            <p class="timeline-desc">Started in a 200sq ft space with 15 bulk bins. First month: 47 customers. Today: 12,000+ members strong. The seed of a zero-waste revolution was planted.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 2022 -->
+                <div class="timeline-item-wrapper">
+                    <div class="timeline-year-col">
+                        <div class="timeline-year-dot">
+                            <div class="timeline-dot-circle"></div>
+                            <span class="timeline-year-number">2022</span>
+                        </div>
+                    </div>
+                    <div class="timeline-content-col">
+                        <div class="timeline-card">
+                            <h3 class="timeline-title">Community Workshops Launch</h3>
+                            <p class="timeline-desc">Free composting classes, DIY cleaning product workshops, and school programs reached 3,500+ families. Building a knowledgeable, empowered community.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 2024 -->
+                <div class="timeline-item-wrapper">
+                    <div class="timeline-year-col">
+                        <div class="timeline-year-dot">
+                            <div class="timeline-dot-circle"></div>
+                            <span class="timeline-year-number">2024</span>
+                        </div>
+                    </div>
+                    <div class="timeline-content-col">
+                        <div class="timeline-card">
+                            <h3 class="timeline-title">Second Location & Impact Milestone</h3>
+                            <p class="timeline-desc">Brooklyn store opens. Surpassed 30,000kg plastic waste prevented. Named "Best Sustainable Business" 2024. Doubled our community reach.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 2025+ -->
+                <div class="timeline-item-wrapper">
+                    <div class="timeline-year-col">
+                        <div class="timeline-year-dot">
+                            <div class="timeline-dot-circle"></div>
+                            <span class="timeline-year-number">2025+</span>
+                        </div>
+                    </div>
+                    <div class="timeline-content-col">
+                        <div class="timeline-card">
+                            <h3 class="timeline-title">The Circular Future</h3>
+                            <p class="timeline-desc">Expanding to 5 new cities, launching mobile refill trucks, and our proprietary zero-waste certification program. The revolution continues.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMPACT STATS -->
+    <section id="impact" class="stats-grid py-24">
+        <div class="container mx-auto px-4 max-w-[1300px]">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div class="stat-item pb-6"><div class="text-5xl md:text-6xl font-black text-[#4CAF50] mb-3">12.5K</div><p class="text-lg font-semibold uppercase tracking-wide" style="color: var(--text-primary);">Plastic Containers Saved</p><p class="text-sm text-gray-500 dark:text-gray-400 mt-2">and counting daily</p></div>
+                <div class="stat-item pb-6"><div class="text-5xl md:text-6xl font-black text-[#4CAF50] mb-3">8,240</div><p class="text-lg font-semibold uppercase tracking-wide" style="color: var(--text-primary);">Active Refillers</p><p class="text-sm text-gray-500 dark:text-gray-400 mt-2">zero-waste community members</p></div>
+                <div class="stat-item pb-6"><div class="text-5xl md:text-6xl font-black text-[#4CAF50] mb-3">156</div><p class="text-lg font-semibold uppercase tracking-wide" style="color: var(--text-primary);">Local Partners</p><p class="text-sm text-gray-500 dark:text-gray-400 mt-2">farmers & ethical suppliers</p></div>
+                <div class="stat-item pb-6"><div class="text-5xl md:text-6xl font-black text-[#4CAF50] mb-3">34K lb</div><p class="text-lg font-semibold uppercase tracking-wide" style="color: var(--text-primary);">Waste Diverted</p><p class="text-sm text-gray-500 dark:text-gray-400 mt-2">from landfills permanently</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ZIGZAG PHILOSOPHY -->
+    <section class="zigzag-section py-24"><div class="container mx-auto px-4 max-w-[1200px]"><div class="flex flex-col lg:flex-row items-center gap-12 mb-20"><div class="lg:w-1/2 order-2 lg:order-1"><h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--text-primary);">Radical <span class="text-[#4CAF50]">Transparency</span></h2><p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">We believe you deserve to know exactly where your products come from. Every ingredient, every supplier, every price — fully visible. No greenwashing, no hidden costs.</p><div class="mt-6 flex gap-4"><i data-lucide="check-circle" class="w-6 h-6 text-[#4CAF50]"></i><span class="font-semibold">100% traceable supply chain</span></div></div><div class="lg:w-1/2 order-1 lg:order-2"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=500&h=400&fit=crop" class="zigzag-image w-full rounded-3xl shadow-2xl" alt="Transparency"></div></div><div class="flex flex-col lg:flex-row items-center gap-12"><div class="lg:w-1/2"><img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&h=400&fit=crop" class="zigzag-image w-full rounded-3xl shadow-2xl" alt="Community"></div><div class="lg:w-1/2"><h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--text-primary);">Community <span class="text-[#4CAF50]">Powered</span></h2><p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">We're not a corporation — we're a collective. Every purchase supports local farmers, funds free workshops, and fuels our beach cleanup initiatives.</p><div class="mt-6 flex gap-4"><i data-lucide="users" class="w-6 h-6 text-[#4CAF50]"></i><span class="font-semibold">1% of sales → community fund</span></div></div></div></div></section>
+
+    <!-- BANNER CTA -->
+    <section class="parallax-banner py-28 md:py-36 text-center relative"><div class="absolute inset-0 bg-black/50"></div><div class="container mx-auto px-4 relative z-10 max-w-3xl"><i data-lucide="heart" class="w-16 h-16 text-[#4CAF50] mx-auto mb-6"></i><h2 class="text-4xl md:text-5xl font-black text-white mb-6">Join the Refill Revolution</h2><p class="text-white/90 text-xl mb-8">Every container you refill is one less piece of plastic in our oceans. Start your zero-waste journey today.</p><div class="flex flex-col sm:flex-row gap-4 justify-center"><a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-[#4CAF50] text-white rounded-full font-bold text-lg hover:bg-[#3d8b40] transition-all shadow-xl">Find a Refill Station <i data-lucide="arrow-right" class="w-5 h-5"></i></a><a href="#" class="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white/20 transition-all">Learn Our Story</a></div></div></section>
+
+    <!-- TEAM SHOWCASE -->
+    <section class="team-showcase py-24"><div class="container mx-auto px-4 max-w-[1300px]"><div class="text-center mb-16"><i data-lucide="crown" class="w-14 h-14 text-[#4CAF50] mx-auto mb-4"></i><h2 class="text-3xl md:text-4xl font-extrabold" style="color: var(--text-primary);">The Founders & Visionaries</h2><p class="text-gray-500 dark:text-gray-400 mt-2">Driven by purpose, powered by passion</p></div><div class="grid md:grid-cols-3 gap-0 md:gap-6"><div class="team-member relative group h-96 overflow-hidden rounded-2xl shadow-2xl"><img src="images/g4.jpg" class="w-full h-full object-cover"><div class="member-overlay"><h3 class="text-2xl font-bold text-white">Sarah Chen</h3><p class="text-white/90 text-sm mb-2">Founder & CEO</p><p class="text-white/80 text-sm">Environmental scientist turned entrepreneur. Started with 5 bins in her garage.</p></div></div><div class="team-member relative group h-96 overflow-hidden rounded-2xl shadow-2xl"><img src="images/c3.jpg" class="w-full h-full object-cover"><div class="member-overlay"><h3 class="text-2xl font-bold text-white">Marcus Rivera</h3><p class="text-white/90 text-sm mb-2">Operations Director</p><p class="text-white/80 text-sm">Ethical sourcing expert. Ensures every product meets our zero-waste standards.</p></div></div><div class="team-member relative group h-96 overflow-hidden rounded-2xl shadow-2xl"><img src="images/c4.jpg" class="w-full h-full object-cover"><div class="member-overlay"><h3 class="text-2xl font-bold text-white">Dr. Emily Park</h3><p class="text-white/90 text-sm mb-2">Community Outreach</p><p class="text-white/80 text-sm">Leads workshops, school programs, and our 300+ volunteer cleanup events.</p></div></div></div><div class="text-center mt-12"><p class="text-gray-500 dark:text-gray-400">+ 25 passionate team members making sustainability accessible every day</p></div></div></section>
+
+    <!-- FOOTER -->
+    <footer class="pt-16 pb-8"><div class="container mx-auto px-4 md:px-8 max-w-[1300px]"><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"><div class="space-y-6"><a href="#" class="logo-brand flex items-center gap-2"><i data-lucide="droplets" class="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 logo-icon"></i><span class="text-2xl sm:text-3xl font-black tracking-tight"><span class="logo-text">Eco</span><span class="logo-text">Refill</span></span></a><p class="text-sm leading-relaxed">Zero-waste grocery & refill store. Bring your own containers, pay by weight, and join the plastic-free movement.</p></div><div><h4 class="text-lg font-black uppercase tracking-widest mb-6">Company</h4><ul class="space-y-3"><li><a href="index.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Home</a></li><li><a href="about.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">About Us</a></li><li><a href="refill.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Refill Stations</a></li><li><a href="gallery.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Gallery</a></li><li><a href="contact.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Contact</a></li></ul></div><div><h4 class="text-lg font-black uppercase tracking-widest mb-6">Resources</h4><ul class="space-y-3"><li><a href="#" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Zero-Waste Guide</a></li><li><a href="#" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Bulk Catalog</a></li><li><a href="#" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Composting 101</a></li><li><a href="blog.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Blog</a></li></ul></div><div><h4 class="text-lg font-black uppercase tracking-widest mb-6">Contact</h4><ul class="space-y-4"><li class="flex gap-3 items-start contact-item"><i data-lucide="phone" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">+1 (888) 554-1278</span></li><li class="flex gap-3 items-start contact-item"><i data-lucide="mail" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">hello@Ecoandrefill.com</span></li><li class="flex gap-3 items-start contact-item"><i data-lucide="map-pin" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">Portland, ME & Brooklyn, NY</span></li></ul></div></div><div class="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4"><p class="text-xs font-medium">© 2026 Eco & Refill — Zero-Waste Grocery & Refill. All Rights Reserved.</p><div class="flex gap-6"><a href="#" class="text-xs font-medium transition-colors hover:text-[#4CAF50]">Privacy Policy</a><a href="#" class="text-xs font-medium transition-colors hover:text-[#4CAF50]">Terms of Service</a><a href="#" class="text-xs font-medium transition-colors hover:text-[#4CAF50]">Sitemap</a></div></div></div></footer>
+    
+    <script>
+        lucide.createIcons();
+        function toggleDropdown(menuId, e) { if(e) e.stopPropagation(); document.querySelectorAll('.dropdown-content').forEach(d => { if(d.id !== menuId) d.classList.remove('show'); }); const m = document.getElementById(menuId); if(m) m.classList.toggle('show'); }
+        window.addEventListener('click', () => { document.querySelectorAll('.dropdown-content').forEach(d => d.classList.remove('show')); });
+        function toggleMobileMenu() { const m = document.getElementById('mobileMenu'); const o = document.getElementById('mobileMenuOverlay'); m.classList.toggle('open'); o.classList.toggle('active'); document.body.classList.toggle('menu-open', m.classList.contains('open')); }
+        function closeMobileMenu() { const m = document.getElementById('mobileMenu'); const o = document.getElementById('mobileMenuOverlay'); m.classList.remove('open'); o.classList.remove('active'); document.body.classList.remove('menu-open'); }
+        function toggleMobileSubmenu(id) { const sub = document.getElementById(id); if(!sub) return; const parentBtn = sub.previousElementSibling; const icon = parentBtn?.querySelector('i[data-lucide="chevron-down"]'); sub.classList.toggle('open'); if(icon) icon.style.transform = sub.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)'; setTimeout(() => lucide.createIcons(), 10); }
+        function toggleTheme() { document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); setTimeout(() => lucide.createIcons(), 10); }
+        function toggleDirection() { 
+            const html = document.documentElement; 
+            const dirTextDesktop = document.getElementById('dirTextDesktop'); 
+            const mobileDirText = document.getElementById('mobileDirText');
+            if (document.getElementById('mobileMenu').classList.contains('open')) closeMobileMenu();
+            if (html.dir === 'rtl') { html.dir = 'ltr'; if(dirTextDesktop) dirTextDesktop.innerText = 'LTR'; if(mobileDirText) mobileDirText.innerText = 'LTR'; } 
+            else { html.dir = 'rtl'; if(dirTextDesktop) dirTextDesktop.innerText = 'RTL'; if(mobileDirText) mobileDirText.innerText = 'RTL'; } 
+            setTimeout(() => lucide.createIcons(), 50); 
+        }
+        function toggleDirectionMobile() { toggleDirection(); }
+        if (localStorage.getItem('theme') === 'dark') { document.documentElement.classList.add('dark'); }
+        document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); closeMobileMenu(); });
+    </script>
+</body>
+</html>

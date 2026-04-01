@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Blog | EcoRefill - Zero-Waste Living Stories & Tips</title>
+    <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=64&h=64&fit=crop">
+    <script src="tailwind.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Light mode (default) */
+        :root {
+            --bg-primary: #FFFFFF;
+            --text-primary: #111111;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --nav-bg-solid: #FFFFFF;
+            --footer-bg: #FFFFFF;
+            --footer-text: #4B5563;
+            --leaf-green: #4CAF50;
+        }
+        
+        /* Dark mode */
+        .dark {
+            --bg-primary: #0F0F0F;
+            --text-primary: #F5F5F5;
+            --card-bg: #1F1F1F;
+            --border-color: #2A2A2A;
+            --nav-bg: rgba(26, 26, 26, 0.95);
+            --nav-bg-solid: #1A1A1A;
+            --footer-bg: #0A0A0A;
+            --footer-text: #9CA3AF;
+        }
+        
+        body { 
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+        
+        /* Brand colors */
+        .logo-icon, .logo-text {
+            color: #4CAF50 !important;
+        }
+        
+        .logo-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+        }
+        
+        /* Navigation */
+        nav .backdrop-blur-xl {
+            background-color: var(--nav-bg) !important;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        
+        .dark nav .backdrop-blur-xl {
+            background-color: var(--nav-bg) !important;
+            border-color: rgba(76, 175, 80, 0.25);
+        }
+        
+        .desktop-nav-links { display: none !important; }
+        .desktop-controls-wrapper { display: none !important; }
+        
+        .mobile-menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border-radius: 12px;
+            background: rgba(76, 175, 80, 0.15);
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        @media (min-width: 1280px) {
+            .desktop-nav-links { display: flex !important; }
+            .desktop-controls-wrapper { display: flex !important; }
+            .mobile-menu-btn { display: none !important; }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1279px) {
+            .desktop-nav-links, .desktop-controls-wrapper { display: none !important; }
+            .mobile-menu-btn { display: flex !important; }
+        }
+        
+        @media (max-width: 767px) {
+            .desktop-nav-links, .desktop-controls-wrapper { display: none !important; }
+            .mobile-menu-btn { display: flex !important; }
+        }
+        
+        .nav-link {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-primary) !important;
+            white-space: nowrap;
+        }
+        
+        .nav-link:hover, .nav-link.active { background-color: #4CAF50 !important; color: white !important; }
+        .nav-link.active-page { background-color: #4CAF50 !important; color: white !important; }
+        
+        .desktop-control-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(76, 175, 80, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            color: var(--text-primary);
+            border: none;
+        }
+        
+        .desktop-control-btn:hover { background: rgba(76, 175, 80, 0.4); }
+        
+        h1, h2, h3, h4 { color: #4CAF50 !important; }
+        .bg-leaf { background-color: #4CAF50 !important; }
+        
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg) !important;
+            border-top: 1px solid var(--border-color);
+        }
+        footer .logo-icon, footer .logo-text { color: #4CAF50 !important; }
+        footer h4 { color: #4CAF50 !important; font-weight: 800; }
+        footer p, footer li, footer span, footer a { color: var(--footer-text) !important; }
+        footer a:hover { color: #4CAF50 !important; }
+        
+        /* Blog Cards */
+        .blog-card {
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .blog-card:hover { transform: translateY(-8px); box-shadow: 0 20px 30px -12px rgba(0,0,0,0.2); }
+        
+        .category-badge {
+            background: #4CAF50;
+            color: white;
+            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .category-pill {
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(76, 175, 80, 0.15);
+            color: var(--text-primary);
+        }
+        .category-pill.active-filter, .category-pill:hover {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        /* Mobile Menu */
+        #mobileMenu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 85%;
+            max-width: 400px;
+            height: 100vh;
+            background-color: var(--card-bg);
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
+            padding: 1.5rem;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.2);
+        }
+        #mobileMenu.open { transform: translateX(0); }
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        body.menu-open { overflow: hidden; }
+        
+        .dropdown-content {
+            display: none;
+            background-color: var(--card-bg) !important;
+            border: 1px solid var(--border-color);
+        }
+        .dropdown-content.show { display: block; }
+        
+        .mobile-nav-link {
+            font-size: 14px; font-weight: 600; padding: 12px 16px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: space-between; width: 100%;
+            text-transform: uppercase; color: var(--text-primary) !important;
+            background: transparent; border: none; cursor: pointer;
+        }
+        .mobile-nav-link.active-mobile { background-color: #4CAF50 !important; color: white !important; }
+        .mobile-submenu {
+            display: none; flex-direction: column; padding-left: 1rem;
+            border-left: 2px solid rgba(76, 175, 80, 0.4);
+        }
+        [dir="rtl"] .mobile-submenu { padding-left: 0; padding-right: 1rem; border-left: none; border-right: 2px solid rgba(76, 175, 80, 0.4); }
+        .mobile-submenu.open { display: flex; }
+        .mobile-submenu a { padding: 12px 16px; border-radius: 8px; color: var(--text-primary) !important; text-decoration: none; }
+        .mobile-submenu a:hover, .mobile-submenu a.active-mobile-sub { background-color: #4CAF50 !important; color: white !important; }
+        
+        .control-btn {
+            width: 100%; padding: 12px 16px; border-radius: 12px; display: flex; align-items: center;
+            justify-content: space-between; background: rgba(76, 175, 80, 0.1); border: 1px solid rgba(76, 175, 80, 0.2);
+            cursor: pointer; margin-top: 8px;
+        }
+        
+        [dir="rtl"] { text-align: right; direction: rtl; }
+        [dir="rtl"] .flex-col { flex-direction: column; }
+        
+        .blog-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        
+        /* Blog Detail Page Styles */
+        .blog-detail-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        .blog-detail-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+        .blog-detail-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 1.5rem 0 1rem;
+            color: #4CAF50 !important;
+        }
+        .blog-detail-content ul, .blog-detail-content ol {
+            margin: 1rem 0 1.5rem 1.5rem;
+        }
+        .blog-detail-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--border-color); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #4CAF50; border-radius: 10px; }
+        
+        .share-btn {
+            transition: all 0.3s ease;
+        }
+        .share-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#4CAF50' } } } }
+    </script>
+</head>
+<body>
+
+    <div id="mobileMenuOverlay" class="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-[100] px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4">
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between backdrop-blur-xl px-4 sm:px-5 py-2 sm:py-3 rounded-xl sm:rounded-2xl border border-sage/30 shadow-lg" style="background-color: var(--nav-bg);">
+            <a href="index.html" class="logo-brand flex items-center gap-2">
+                <i data-lucide="droplets" class="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 logo-icon"></i>
+                <span class="text-2xl sm:text-3xl font-black tracking-tight"><span class="logo-text">Eco</span><span class="logo-text">Refill</span></span>
+            </a>
+            
+            <div class="desktop-nav-links items-center gap-1 xl:gap-2">
+                <div class="relative"><button onclick="toggleDropdown('homeMenu', event)" class="nav-link">Home <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i></button>
+                    <div id="homeMenu" class="dropdown-content absolute top-full mt-2 w-40 shadow-xl rounded-lg border overflow-hidden" style="background-color: var(--card-bg);">
+                        <a href="index.html" class="nav-link block px-4 py-2.5 text-xs font-bold hover:bg-[#4CAF50] hover:text-white transition">Home1</a>
+                        <a href="home2.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#4CAF50] hover:text-white transition">Home2</a>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="refill.html" class="nav-link">Refill</a>
+                <a href="market.html" class="nav-link">Market</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="faq.html" class="nav-link">Faq</a>
+                <a href="blog.html" class="nav-link active-page">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            
+            <div class="desktop-controls-wrapper items-center gap-2">
+                <button onclick="toggleDirection()" class="desktop-control-btn"><i data-lucide="arrow-left-right" class="w-4 h-4"></i><span id="dirTextDesktop">LTR</span></button>
+                <button onclick="toggleTheme()" class="desktop-control-btn"><i data-lucide="moon" class="w-4 h-4 dark:hidden"></i><i data-lucide="sun" class="w-4 h-4 hidden dark:block text-yellow-400"></i><span class="dark:hidden">Dark</span><span class="hidden dark:inline">Light</span></button>
+                <div class="relative">
+                    <button onclick="toggleDropdown('userMenuDesktop', event)" class="desktop-control-btn"><i data-lucide="user" class="w-4 h-4"></i><span>Account</span><i data-lucide="chevron-down" class="w-3 h-3"></i></button>
+                    <div id="userMenuDesktop" class="dropdown-content absolute right-0 top-full mt-2 w-40 shadow-xl rounded-lg border overflow-hidden z-50" style="background-color: var(--card-bg);">
+                        <a href="login.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#4CAF50] hover:text-white transition">LOGIN</a>
+                        <a href="register.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#4CAF50] hover:text-white transition">SIGNUP</a>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="toggleMobileMenu()" class="mobile-menu-btn p-2 sm:p-2.5 rounded-lg transition" style="background: rgba(76, 175, 80, 0.2); color: var(--text-primary);">
+                <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobileMenu">
+        <div class="flex justify-between items-center mb-6">
+            <a href="index.html" class="logo-brand flex items-center gap-2"><i data-lucide="droplets" class="w-7 h-7 logo-icon"></i><span class="text-2xl font-black"><span class="logo-text">Eco</span><span class="logo-text">Refill</span></span></a>
+            <button onclick="closeMobileMenu()" class="p-2 rounded-full" style="background: rgba(76, 175, 80, 0.2);"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+        <button onclick="toggleMobileSubmenu('mobileHomeSub')" class="mobile-nav-link"><span>Home</span> <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+        <div id="mobileHomeSub" class="mobile-submenu"><a href="index.html">Home1</a><a href="home2.html">Home2</a></div>
+        <a href="about.html" class="mobile-nav-link">About</a>
+        <a href="refill.html" class="mobile-nav-link">Refill</a>
+        <a href="market.html" class="mobile-nav-link">Market</a>
+        <a href="gallery.html" class="mobile-nav-link">Gallery</a>
+        <a href="faq.html" class="mobile-nav-link">Faq</a>
+        <a href="blog.html" class="mobile-nav-link active-mobile">Blog</a>
+        <a href="contact.html" class="mobile-nav-link">Contact</a>
+        <div class="h-px bg-sage/30 my-3"></div>
+        <div class="control-btn" onclick="toggleMobileSubmenu('mobileAuthSub')"><span class="font-semibold text-sm flex items-center gap-2"><i data-lucide="user-circle" class="w-4 h-4"></i> Account</span><i data-lucide="chevron-down" class="w-4 h-4"></i></div>
+        <div id="mobileAuthSub" class="mobile-submenu"><a href="login.html">Login</a><a href="register.html">Sign Up</a></div>
+        <div class="control-btn" onclick="toggleDirectionMobile()"><span class="font-semibold text-sm flex items-center gap-2"><i data-lucide="arrow-left-right" class="w-4 h-4"></i> RTL Mode</span><span id="mobileDirText" class="text-xs font-bold bg-sage/20 px-2 py-1 rounded">LTR</span></div>
+        <div class="control-btn" onclick="toggleTheme()"><span class="font-semibold text-sm flex items-center gap-2"><i data-lucide="moon" class="w-4 h-4 dark:hidden"></i><i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i> Dark Mode</span><span class="text-xs bg-sage/20 px-2 py-1 rounded">🌓</span></div>
+    </div>
+
+    <!-- DYNAMIC CONTENT: either Blog Listing or Blog Detail based on URL parameter -->
+    <div id="appRoot"></div>
+  <footer class="pt-16 pb-8">
+        <div class="container mx-auto px-4 md:px-8 max-w-[1300px]">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="space-y-6"><a href="#" class="logo-brand flex items-center gap-2"><i data-lucide="droplets" class="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 logo-icon"></i><span class="text-2xl sm:text-3xl font-black tracking-tight"><span class="logo-text">Eco</span><span class="logo-text">Refill</span></span></a><p class="text-sm leading-relaxed">Zero-waste grocery & refill store. Bring your own containers, pay by weight, and join the plastic-free movement.</p></div>
+                <div><h4 class="text-lg font-black uppercase tracking-widest mb-6">Company</h4><ul class="space-y-3"><li><a href="index.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Home</a></li><li><a href="about.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">About Us</a></li><li><a href="refill.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Refill Stations</a></li><li><a href="gallery.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Gallery</a></li><li><a href="contact.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Contact</a></li></ul></div>
+                <div><h4 class="text-lg font-black uppercase tracking-widest mb-6">Resources</h4><ul class="space-y-3"><li><a href="#" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Zero-Waste Guide</a></li><li><a href="#" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Bulk Catalog</a></li><li><a href="#" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Composting 101</a></li><li><a href="blog.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Blog</a></li></ul></div>
+                <div><h4 class="text-lg font-black uppercase tracking-widest mb-6">Contact</h4><ul class="space-y-4"><li class="flex gap-3 items-start contact-item"><i data-lucide="phone" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">+1 (888) 554-1278</span></li><li class="flex gap-3 items-start contact-item"><i data-lucide="mail" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">hello@Ecoandrefill.com</span></li><li class="flex gap-3 items-start contact-item"><i data-lucide="map-pin" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">Portland, ME & Brooklyn, NY</span></li></ul></div>
+            </div>
+            <div class="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4"><p class="text-xs font-medium">© 2026 Eco & Refill — Zero-Waste Grocery & Refill. All Rights Reserved.</p><div class="flex gap-6"><a href="#" class="text-xs font-medium transition-colors hover:text-[#4CAF50]">Privacy Policy</a><a href="#" class="text-xs font-medium transition-colors hover:text-[#4CAF50]">Terms of Service</a><a href="#" class="text-xs font-medium transition-colors hover:text-[#4CAF50]">Sitemap</a></div></div>
+        </div>
+    </footer>
+
+    <script>
+        // Blog Posts Database
+        const blogPosts = [
+            { 
+                id: 1, 
+                title: "10 Simple Swaps to Start Your Zero-Waste Journey", 
+                category: "tips", 
+                date: "March 15, 2026", 
+                readTime: "5 min read", 
+                image: "images/g3.jpg", 
+                excerpt: "Small changes add up to big impact. Start with these easy plastic-free alternatives.", 
+                content: `<p>Transitioning to a zero-waste lifestyle doesn't happen overnight. Start by replacing single-use items with reusable alternatives: bamboo toothbrushes, stainless steel straws, and cotton produce bags. The key is to use what you already have first.</p>
+                <p>At EcoRefill, we believe every small step counts. Bring your own jars, choose package-free options, and compost food scraps. Within a month, you'll notice a significant reduction in your household waste.</p>
+                <h3>Top 3 Swaps to Try Today:</h3>
+                <ul>
+                    <li><strong>Reusable Water Bottle</strong> - Save hundreds of plastic bottles yearly</li>
+                    <li><strong>Beeswax Wraps</strong> - Replace plastic wrap for food storage</li>
+                    <li><strong>Bulk Shopping</strong> - Bring your own containers for pantry staples</li>
+                </ul>
+                <p>Remember, progress over perfection. Every refill at EcoRefill helps eliminate plastic waste from our oceans and landfills.</p>`
+            },
+            { 
+                id: 2, 
+                title: "How We Saved 5,000lbs of Plastic in One Year", 
+                category: "stories", 
+                date: "March 8, 2026", 
+                readTime: "4 min read", 
+                image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800&h=500&fit=crop", 
+                excerpt: "Our community's collective effort made this possible. Here's the breakdown.", 
+                content: `<p>Thanks to 2,300 active refill members, we collectively avoided over 5,000 pounds of plastic packaging in 2025. That's equivalent to 150,000 single-use bottles!</p>
+                <p>Every refill adds up. Our pay-by-weight system encourages mindful consumption, and our container library helps those new to the movement. Together, we're proving that zero waste is achievable.</p>
+                <h3>Our Impact Breakdown:</h3>
+                <ul>
+                    <li>3,200 lbs of plastic saved from bulk food purchases</li>
+                    <li>1,500 lbs from cleaning product refills</li>
+                    <li>300 lbs from personal care items</li>
+                </ul>
+                <p>Join our next community cleanup on April 22nd — Earth Day celebration with free workshops!</p>`
+            },
+            { 
+                id: 3, 
+                title: "The Ultimate Guide to Bulk Shopping", 
+                category: "guides", 
+                date: "March 1, 2026", 
+                readTime: "7 min read", 
+                image: "https://images.unsplash.com/photo-1579113800032-c38bd7635818?w=800&h=500&fit=crop", 
+                excerpt: "Everything you need to know about shopping package-free at refill stores.", 
+                content: `<p>Bulk shopping is simple once you know the basics. Always bring clean, dry containers. Have them tared at checkout — we'll subtract the container weight so you only pay for the product.</p>
+                <h3>Getting Started:</h3>
+                <ul>
+                    <li><strong>Bring containers:</strong> Mason jars, cloth bags, or any clean reusable container</li>
+                    <li><strong>Get them tared:</strong> We'll weigh your empty containers first</li>
+                    <li><strong>Fill & pay:</strong> Fill what you need, we subtract the tare weight</li>
+                </ul>
+                <p>Start with dry goods like grains, nuts, and pasta. Then explore liquids: oils, vinegars, and eco-cleaners. Don't forget spices — buying in bulk saves up to 60% compared to packaged versions.</p>
+                <p><strong>Pro tip:</strong> Keep a 'refill kit' in your car with jars and bags so you're always ready to shop sustainably!</p>`
+            },
+            { 
+                id: 4, 
+                title: "Why Refill Stores Are the Future of Retail", 
+                category: "stories", 
+                date: "February 22, 2026", 
+                readTime: "6 min read", 
+                image: "images/r1.jpg", 
+                excerpt: "Exploring the rapid growth of zero-waste retail and consumer shift.", 
+                content: `<p>Consumer demand for sustainable options is driving a retail transformation. Refill stores grew by 40% in North America last year, signaling a shift toward circular economy models.</p>
+                <p>EcoRefill is proud to be at the forefront, partnering with local producers and offering over 300 bulk items. We're not just a store — we're a movement reimagining consumption.</p>
+                <h3>Why Consumers Are Switching:</h3>
+                <ul>
+                    <li>Save up to 40% on groceries</li>
+                    <li>Reduce household plastic waste dramatically</li>
+                    <li>Support local, ethical supply chains</li>
+                </ul>
+                <p>Visit us to experience the future of grocery shopping today.</p>`
+            },
+            { 
+                id: 5, 
+                title: "5 DIY Natural Cleaners You Can Refill", 
+                category: "tips", 
+                date: "February 15, 2026", 
+                readTime: "5 min read", 
+                image: "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=800&h=500&fit=crop", 
+                excerpt: "Make your own eco-friendly cleaners using bulk ingredients.", 
+                content: `<p>Skip toxic chemicals and create your own non-toxic cleaners. Our refill station offers castile soap, white vinegar, and essential oils — perfect for DIY solutions.</p>
+                <h3>Simple DIY Recipes:</h3>
+                <ul>
+                    <li><strong>All-Purpose Cleaner:</strong> Mix 1 cup water, 1/4 cup white vinegar, 10 drops tea tree oil</li>
+                    <li><strong>Glass Cleaner:</strong> 1 cup water, 1/4 cup rubbing alcohol, 1 tbsp vinegar</li>
+                    <li><strong>Bathroom Scrub:</strong> Baking soda + castile soap paste</li>
+                </ul>
+                <p>Bring your spray bottle for a refill! These recipes are cost-effective, safe for kids and pets, and eliminate plastic waste entirely.</p>`
+            },
+            { 
+                id: 6, 
+                title: "Composting 101: Turn Waste into Gold", 
+                category: "guides", 
+                date: "February 8, 2026", 
+                readTime: "6 min read", 
+                image: "images/r6.jpg", 
+                excerpt: "A beginner's guide to composting at home, even in small spaces.", 
+                content: `<p>Composting reduces landfill waste and creates nutrient-rich soil for gardening. Even apartment dwellers can compost using vermicomposting (worms) or bokashi systems.</p>
+                <h3>What to Compost:</h3>
+                <ul>
+                    <li>Fruit and vegetable scraps</li>
+                    <li>Coffee grounds and filters</li>
+                    <li>Eggshells</li>
+                    <li>Leaves and yard waste</li>
+                </ul>
+                <p>Avoid meat, dairy, and oils. At EcoRefill, we offer composting workshops monthly — check our events calendar!</p>
+                <p>Reduce your waste footprint by 30% just by composting kitchen scraps.</p>`
+            }
+        ];
+
+        // Get URL parameter
+        function getUrlParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Render Blog Detail Page
+        function renderBlogDetail(postId) {
+            const post = blogPosts.find(p => p.id === parseInt(postId));
+            if (!post) {
+                renderBlogListing();
+                return;
+            }
+            
+            const categoryIcon = post.category === 'tips' ? '💡' : post.category === 'stories' ? '📖' : '📚';
+            const categoryName = post.category === 'tips' ? 'Tips' : post.category === 'stories' ? 'Stories' : 'Guides';
+            
+            document.getElementById('appRoot').innerHTML = `
+                <section class="pt-32 pb-12" style="background: linear-gradient(135deg, #1F4A1F 0%, #2E7D32 100%);">
+                    <div class="container mx-auto px-4 text-center">
+                        <a href="blog.html" class="inline-flex items-center gap-2 text-white/80 hover:text-white mb-4 transition">
+                            <i data-lucide="arrow-left" class="w-5 h-5"></i> Back to Blog
+                        </a>
+                        <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4">${post.title}</h1>
+                    </div>
+                </section>
+                
+                <section class="py-12" style="background-color: var(--bg-primary);">
+                    <div class="container mx-auto px-4 max-w-4xl">
+                        <div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl">
+                            <img src="${post.image}" class="w-full h-64 md:h-96 object-cover" alt="${post.title}">
+                            <div class="p-6 md:p-8">
+                                <div class="flex flex-wrap gap-3 mb-6">
+                                    <span class="category-badge">${categoryIcon} ${categoryName}</span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">📅 ${post.date}</span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">⏱️ ${post.readTime}</span>
+                                </div>
+                                <div class="blog-detail-content">
+                                    ${post.content}
+                                </div>
+                                <div class="mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
+                                    <h4 class="font-bold text-lg mb-3">Share This Article</h4>
+                                    <div class="flex gap-3 flex-wrap">
+                                        <button onclick="shareArticle('${post.title}')" class="share-btn bg-[#4CAF50] text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-[#3d8b40] transition flex items-center gap-2">
+                                            <i data-lucide="share-2" class="w-4 h-4"></i> Share
+                                        </button>
+                                        <a href="blog.html" class="share-btn border border-[#4CAF50] text-[#4CAF50] px-5 py-2 rounded-lg text-sm font-semibold hover:bg-[#4CAF50] hover:text-white transition flex items-center gap-2">
+                                            <i data-lucide="book-open" class="w-4 h-4"></i> More Articles
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+            setTimeout(() => lucide.createIcons(), 50);
+        }
+
+        // Render Blog Listing Page
+        function renderBlogListing(filter = "all") {
+            const filtered = filter === "all" ? blogPosts : blogPosts.filter(post => post.category === filter);
+            
+            document.getElementById('appRoot').innerHTML = `
+                <section class="relative pt-32 pb-16 overflow-hidden" style="background: linear-gradient(135deg, #1F4A1F 0%, #2E7D32 100%);">
+                    <div class="absolute inset-0 opacity-15"><img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920&h=400&fit=crop" class="w-full h-full object-cover"></div>
+                    <div class="container mx-auto px-4 relative z-10 text-center">
+                        <i data-lucide="newspaper" class="w-16 h-16 text-white mx-auto mb-4"></i>
+                        <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">The Refill Revolution</h1>
+                        <p class="text-white/90 text-lg md:text-xl max-w-2xl mx-auto">Stories, tips, and inspiration for a zero-waste lifestyle</p>
+                    </div>
+                </section>
+                
+                <section class="py-16" style="background-color: var(--bg-primary);">
+                    <div class="container mx-auto px-4 max-w-[1300px]">
+                        <div class="flex justify-between items-center mb-10 flex-wrap gap-4">
+                            <div>
+                                <h2 class="text-3xl md:text-4xl font-bold">Latest Articles</h2>
+                                <p class="text-gray-500 dark:text-gray-400 mt-1">Insights from our zero-waste community</p>
+                            </div>
+                            <div class="flex gap-2 flex-wrap">
+                                <button onclick="filterPosts('all')" id="filterAll" class="category-pill ${filter === 'all' ? 'active-filter' : ''}">All</button>
+                                <button onclick="filterPosts('tips')" id="filterTips" class="category-pill ${filter === 'tips' ? 'active-filter' : ''}">💡 Tips</button>
+                                <button onclick="filterPosts('stories')" id="filterStories" class="category-pill ${filter === 'stories' ? 'active-filter' : ''}">📖 Stories</button>
+                                <button onclick="filterPosts('guides')" id="filterGuides" class="category-pill ${filter === 'guides' ? 'active-filter' : ''}">📚 Guides</button>
+                            </div>
+                        </div>
+                        <div id="blogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            ${filtered.map(post => `
+                                <div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl blog-card" onclick="window.location.href='blog.html?id=${post.id}'">
+                                    <img src="${post.image}" class="w-full h-56 object-cover" alt="${post.title}">
+                                    <div class="p-6 flex flex-col flex-grow">
+                                        <div class="flex justify-between items-center mb-3">
+                                            <span class="category-badge">${post.category === 'tips' ? '💡 Tips' : post.category === 'stories' ? '📖 Stories' : '📚 Guides'}</span>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">${post.readTime}</span>
+                                        </div>
+                                        <h3 class="text-xl font-bold mb-2 hover:text-[#4CAF50] transition" style="color: var(--text-primary);">${post.title}</h3>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 flex-grow">${post.excerpt}</p>
+                                        <div class="flex justify-between items-center mt-2">
+                                            <span class="text-xs text-gray-500">📅 ${post.date}</span>
+                                            <button class="text-[#4CAF50] font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all">Read More <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="py-16" style="background: linear-gradient(135deg, #E8F5E9 0%, #FFFFFF 100%);">
+                    <div class="dark" style="background: linear-gradient(135deg, #1A2A1A 0%, #0F0F0F 100%); padding: 3rem 0;">
+                        <div class="container mx-auto px-4 max-w-[1300px] text-center">
+                            <i data-lucide="mail" class="w-12 h-12 text-[#4CAF50] mx-auto mb-4"></i>
+                            <h2 class="text-3xl font-bold mb-2">Join Our Newsletter</h2>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6">Get weekly zero-waste tips, new product alerts, and community stories.</p>
+                            <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                                <input type="email" placeholder="Your email address" class="px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 flex-1">
+                                <button class="bg-[#4CAF50] hover:bg-[#3d8b40] text-white px-6 py-3 rounded-xl font-bold transition">Subscribe</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+            setTimeout(() => lucide.createIcons(), 100);
+            
+            // Store current filter for function reference
+            window.currentFilter = filter;
+        }
+
+        // Filter function for listing page
+        function filterPosts(category) {
+            renderBlogListing(category);
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+
+        // Share function
+        function shareArticle(title) {
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Link copied to clipboard!');
+            }
+        }
+
+        // Navigation functions
+        function toggleDropdown(menuId, e) { 
+            if(e) e.stopPropagation(); 
+            document.querySelectorAll('.dropdown-content').forEach(d => { 
+                if(d.id !== menuId) d.classList.remove('show'); 
+            }); 
+            const m = document.getElementById(menuId); 
+            if(m) m.classList.toggle('show'); 
+        }
+        
+        window.addEventListener('click', () => { 
+            document.querySelectorAll('.dropdown-content').forEach(d => d.classList.remove('show')); 
+        });
+        
+        function toggleMobileMenu() { 
+            const mobileMenu = document.getElementById('mobileMenu'); 
+            const overlay = document.getElementById('mobileMenuOverlay'); 
+            mobileMenu.classList.toggle('open'); 
+            overlay.classList.toggle('active'); 
+            document.body.classList.toggle('menu-open', mobileMenu.classList.contains('open')); 
+        }
+        
+        function closeMobileMenu() { 
+            document.getElementById('mobileMenu')?.classList.remove('open'); 
+            document.getElementById('mobileMenuOverlay')?.classList.remove('active'); 
+            document.body.classList.remove('menu-open'); 
+        }
+        
+        function toggleMobileSubmenu(id) { 
+            const sub = document.getElementById(id); 
+            if(!sub) return; 
+            const parentBtn = sub.previousElementSibling; 
+            const icon = parentBtn?.querySelector('i[data-lucide="chevron-down"]'); 
+            sub.classList.toggle('open'); 
+            if(icon) icon.style.transform = sub.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)'; 
+            setTimeout(() => lucide.createIcons(), 10); 
+        }
+        
+        function toggleTheme() { 
+            document.documentElement.classList.toggle('dark'); 
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); 
+            setTimeout(() => lucide.createIcons(), 10); 
+        }
+        
+        function toggleDirection() { 
+            const html = document.documentElement; 
+            const dirTextDesktop = document.getElementById('dirTextDesktop'); 
+            const mobileDirText = document.getElementById('mobileDirText'); 
+            if (html.dir === 'rtl') { 
+                html.dir = 'ltr'; 
+                if(dirTextDesktop) dirTextDesktop.innerText = 'LTR'; 
+                if(mobileDirText) mobileDirText.innerText = 'LTR'; 
+            } else { 
+                html.dir = 'rtl'; 
+                if(dirTextDesktop) dirTextDesktop.innerText = 'RTL'; 
+                if(mobileDirText) mobileDirText.innerText = 'RTL'; 
+            } 
+            setTimeout(() => lucide.createIcons(), 50); 
+        }
+        
+        function toggleDirectionMobile() { toggleDirection(); }
+        
+        // Initialize page based on URL parameter
+        if (localStorage.getItem('theme') === 'dark') { 
+            document.documentElement.classList.add('dark'); 
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => { 
+            const postId = getUrlParam('id');
+            if (postId) {
+                renderBlogDetail(postId);
+            } else {
+                renderBlogListing('all');
+            }
+            closeMobileMenu();
+            lucide.createIcons();
+            
+            // Make filter functions globally accessible
+            window.filterPosts = filterPosts;
+            window.shareArticle = shareArticle;
+        });
+    </script>
+</body>
+</html>

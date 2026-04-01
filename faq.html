@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>FAQ | EcoRefill - Zero-Waste Grocery & Refill Store</title>
+    <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=64&h=64&fit=crop">
+    <script src="tailwind.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Light mode (default) */
+        :root {
+            --bg-primary: #FFFFFF;
+            --text-primary: #111111;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --nav-bg-solid: #FFFFFF;
+            --footer-bg: #FFFFFF;
+            --footer-text: #4B5563;
+            --leaf-green: #4CAF50;
+        }
+        
+        /* Dark mode */
+        .dark {
+            --bg-primary: #0F0F0F;
+            --text-primary: #F5F5F5;
+            --card-bg: #1F1F1F;
+            --border-color: #2A2A2A;
+            --nav-bg: rgba(26, 26, 26, 0.95);
+            --nav-bg-solid: #1A1A1A;
+            --footer-bg: #0A0A0A;
+            --footer-text: #9CA3AF;
+        }
+        
+        body { 
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+        
+        /* Brand colors */
+        .logo-icon, .logo-text {
+            color: #4CAF50 !important;
+        }
+        
+        .logo-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+        }
+        
+        /* Navigation */
+        nav .backdrop-blur-xl {
+            background-color: var(--nav-bg) !important;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        
+        .dark nav .backdrop-blur-xl {
+            background-color: var(--nav-bg) !important;
+            border-color: rgba(76, 175, 80, 0.25);
+        }
+        
+        .desktop-nav-links { display: none !important; }
+        .desktop-controls-wrapper { display: none !important; }
+        .mobile-menu-btn { display: flex !important; }
+        
+        @media (min-width: 1280px) {
+            .desktop-nav-links { display: flex !important; }
+            .desktop-controls-wrapper { display: flex !important; }
+            .mobile-menu-btn { display: none !important; }
+        }
+        
+        .nav-link {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-primary) !important;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        
+        .dark .nav-link { color: #F5F5F5 !important; }
+        .nav-link:hover, .nav-link.active-page { background-color: #4CAF50 !important; color: white !important; }
+        
+        .desktop-control-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(76, 175, 80, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            color: var(--text-primary);
+            border: none;
+        }
+        
+        .desktop-control-btn:hover { background: rgba(76, 175, 80, 0.4); }
+        
+        footer {
+            background-color: var(--footer-bg) !important;
+            border-top: 1px solid var(--border-color);
+            transition: background-color 0.3s ease;
+        }
+        
+        footer .logo-icon, footer .logo-text { color: #4CAF50 !important; }
+        footer h4 { color: #4CAF50 !important; font-weight: 800; letter-spacing: 0.05em; }
+        footer p, footer li, footer span, footer .text-gray-400 { color: var(--footer-text) !important; }
+        footer a { color: var(--footer-text) !important; transition: color 0.2s ease; }
+        footer a:hover { color: #4CAF50 !important; }
+        footer .border-t { border-color: var(--border-color) !important; }
+        
+        /* RTL Support */
+        [dir="rtl"] { text-align: right; direction: rtl; }
+        [dir="rtl"] .flex-col { flex-direction: column; }
+        [dir="rtl"] .text-left { text-align: right; }
+        [dir="rtl"] .text-right { text-align: left; }
+        [dir="rtl"] .ml-auto { margin-left: 0; margin-right: auto; }
+        [dir="rtl"] .mr-auto { margin-right: 0; margin-left: auto; }
+        [dir="rtl"] .contact-item { flex-direction: row-reverse; }
+        [dir="rtl"] .contact-item i { margin-left: 0.75rem; margin-right: 0; }
+        
+        .dropdown-content {
+            display: none;
+            background-color: var(--card-bg) !important;
+            border: 1px solid var(--border-color);
+        }
+        .dropdown-content.show { display: block; }
+        
+        /* Mobile Menu - FIXED with proper RTL support */
+        #mobileMenu {
+            position: fixed;
+            top: 0;
+            width: 85%;
+            max-width: 400px;
+            height: 100vh;
+            background-color: var(--card-bg);
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
+            padding: 1.5rem;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.2);
+        }
+        
+        /* LTR mode: menu starts from left */
+        /* Mobile Menu - ALWAYS LEFT (ignore RTL) */
+#mobileMenu {
+    position: fixed;
+    top: 0;
+    left: 0;        /* always left */
+    right: auto;    /* prevent RTL override */
+    width: 85%;
+    max-width: 400px;
+    height: 100vh;
+    background-color: var(--card-bg);
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    overflow-y: auto;
+    padding: 1.5rem;
+    box-shadow: 2px 0 20px rgba(0,0,0,0.2);
+}
+
+/* Open state */
+#mobileMenu.open {
+    transform: translateX(0);
+}
+        
+        /* Overlay for mobile menu */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        body.menu-open { overflow: hidden; }
+        
+        .mobile-nav-link {
+            font-size: 14px; font-weight: 600; padding: 12px 16px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: space-between; width: 100%;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            color: var(--text-primary) !important;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: left;
+        }
+        
+        [dir="rtl"] .mobile-nav-link {
+            text-align: right;
+        }
+        
+        .mobile-nav-link.active-mobile { background-color: #4CAF50 !important; color: white !important; }
+        .mobile-nav-link:hover { background-color: #4CAF50 !important; color: white !important; }
+        .mobile-submenu {
+            display: none; flex-direction: column; padding-left: 1rem;
+            border-left: 2px solid rgba(76, 175, 80, 0.4);
+        }
+        [dir="rtl"] .mobile-submenu { padding-left: 0; padding-right: 1rem; border-left: none; border-right: 2px solid rgba(76, 175, 80, 0.4); }
+        .mobile-submenu.open { display: flex; }
+        .mobile-submenu a { padding: 12px 16px; border-radius: 8px; color: var(--text-primary) !important; text-decoration: none; font-size: 14px; }
+        
+        .control-btn {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+        
+        .control-btn:hover {
+            background: rgba(76, 175, 80, 0.2);
+        }
+        
+        @media (min-width: 768px) and (max-width: 1279px) {
+            .desktop-nav-links, .desktop-controls-wrapper { display: none !important; }
+            .mobile-menu-btn { display: flex !important; }
+        }
+        
+        /* FAQ Page Specific Styles */
+        .faq-hero {
+            background: linear-gradient(135deg, #0A2F0A 0%, #1E3A1E 50%, #2E4A2E 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .faq-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/h3.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .category-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn.active-category {
+            background-color: #4CAF50 !important;
+            color: white !important;
+            border-color: #4CAF50 !important;
+        }
+        
+        .faq-accordion-item {
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+        }
+        
+        .faq-accordion-item:hover {
+            border-color: #4CAF50;
+        }
+        
+        .faq-question-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .faq-question-btn:hover {
+            color: #4CAF50;
+        }
+        
+        .faq-answer {
+            transition: all 0.3s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.7s ease-out forwards;
+        }
+        
+        .search-highlight {
+            background-color: rgba(76, 175, 80, 0.3);
+            border-radius: 4px;
+            padding: 0 2px;
+        }
+        
+        .stats-card {
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#4CAF50' } } } }
+    </script>
+</head>
+<body>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenuOverlay" class="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-[100] px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4">
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between backdrop-blur-xl px-4 sm:px-5 py-2 sm:py-3 rounded-xl sm:rounded-2xl border border-sage/30 shadow-lg" style="background-color: var(--nav-bg); transition: background-color 0.3s ease;">
+            <a href="index.html" class="logo-brand flex items-center gap-2">
+                <i data-lucide="droplets" class="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 logo-icon"></i>
+                <span class="text-2xl sm:text-3xl font-black tracking-tight"><span class="logo-text">Eco</span><span class="logo-text">Refill</span></span>
+            </a>
+            
+            <div class="desktop-nav-links items-center gap-1 xl:gap-2">
+                <div class="relative"><button onclick="toggleDropdown('homeMenu', event)" class="nav-link">Home <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i></button>
+                    <div id="homeMenu" class="dropdown-content absolute top-full mt-2 w-40 shadow-xl rounded-lg border overflow-hidden" style="background-color: var(--card-bg);">
+                        <a href="index.html" class="nav-link block px-4 py-2.5 text-xs font-bold hover:bg-[#4CAF50] hover:text-white transition">Home1</a>
+                        <a href="home2.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#4CAF50] hover:text-white transition">Home2</a>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="refill.html" class="nav-link">Refill</a>
+                <a href="market.html" class="nav-link">Market</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="faq.html" class="nav-link active-page">Faq</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            
+            <div class="desktop-controls-wrapper items-center gap-2">
+                <button onclick="toggleDirection()" class="desktop-control-btn">
+                    <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
+                    <span id="dirTextDesktop">LTR</span>
+                </button>
+                <button onclick="toggleTheme()" class="desktop-control-btn">
+                    <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
+                    <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-yellow-400"></i>
+                    <span class="dark:hidden">Dark</span>
+                    <span class="hidden dark:inline">Light</span>
+                </button>
+                <div class="relative">
+                    <button onclick="toggleDropdown('userMenuDesktop', event)" class="desktop-control-btn">
+                        <i data-lucide="user" class="w-4 h-4"></i>
+                        <span>Account</span>
+                        <i data-lucide="chevron-down" class="w-3 h-3"></i>
+                    </button>
+                    <div id="userMenuDesktop" class="dropdown-content absolute right-0 top-full mt-2 w-40 shadow-xl rounded-lg border overflow-hidden z-50" style="background-color: var(--card-bg);">
+                        <a href="login.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#4CAF50] hover:text-white transition">LOGIN</a>
+                        <a href="register.html" class="block px-4 py-2.5 text-xs font-bold hover:bg-[#4CAF50] hover:text-white transition">SIGNUP</a>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="toggleMobileMenu()" class="mobile-menu-btn p-2 sm:p-2.5 rounded-lg transition" style="background: rgba(76, 175, 80, 0.2); color: var(--text-primary);">
+                <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- MOBILE MENU PANEL - Initially hidden, RTL aware -->
+    <div id="mobileMenu">
+        <div class="flex justify-between items-center mb-6">
+            <a href="index.html" class="logo-brand flex items-center gap-2">
+                <i data-lucide="droplets" class="w-7 h-7 logo-icon"></i>
+                <span class="text-2xl font-black tracking-tight"><span class="logo-text">Eco</span><span class="logo-text">Refill</span></span>
+            </a>
+            <button onclick="closeMobileMenu()" class="p-2 rounded-full hover:bg-sage/40" style="background: rgba(76, 175, 80, 0.2);">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <button onclick="toggleMobileSubmenu('mobileHomeSub')" class="mobile-nav-link">
+            <span>Home</span> <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+        </button>
+        <div id="mobileHomeSub" class="mobile-submenu">
+            <a href="index.html" class="block py-3 px-4 text-sm font-medium rounded-lg">Home1</a>
+            <a href="home2.html" class="block py-3 px-4 text-sm font-medium rounded-lg">Home2</a>
+        </div>
+        <a href="about.html" class="mobile-nav-link">About</a>
+        <a href="refill.html" class="mobile-nav-link">Refill</a>
+        <a href="market.html" class="mobile-nav-link">Market</a>
+        <a href="gallery.html" class="mobile-nav-link">Gallery</a>
+        <a href="faq.html" class="mobile-nav-link active-mobile">Faq</a>
+        <a href="blog.html" class="mobile-nav-link">Blog</a>
+        <a href="contact.html" class="mobile-nav-link">Contact</a>
+        
+        <div class="h-px bg-sage/30 my-3"></div>
+        
+        <div class="control-btn" onclick="toggleMobileSubmenu('mobileAuthSub')">
+            <span class="font-semibold text-sm flex items-center gap-2">
+                <i data-lucide="user-circle" class="w-4 h-4"></i> Account
+            </span>
+            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+        </div>
+        <div id="mobileAuthSub" class="mobile-submenu">
+            <a href="login.html" class="flex items-center gap-2 py-3 px-4 text-sm font-medium">
+                <i data-lucide="log-in" class="w-4 h-4"></i> Login
+            </a>
+            <a href="register.html" class="flex items-center gap-2 py-3 px-4 text-sm font-medium">
+                <i data-lucide="user-plus" class="w-4 h-4"></i> Sign Up
+            </a>
+        </div>
+        
+        <div class="control-btn" onclick="toggleDirectionMobile()">
+            <span class="font-semibold text-sm flex items-center gap-2">
+                <i data-lucide="arrow-left-right" class="w-4 h-4"></i> RTL Mode
+            </span>
+            <span id="mobileDirText" class="text-xs font-bold bg-sage/20 px-2 py-1 rounded">LTR</span>
+        </div>
+        
+        <div class="control-btn" onclick="toggleTheme()">
+            <span class="font-semibold text-sm flex items-center gap-2">
+                <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
+                <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-yellow-400"></i>
+                Dark Mode
+            </span>
+            <span class="text-xs bg-sage/20 px-2 py-1 rounded">🌓</span>
+        </div>
+    </div>
+
+    <!-- SECTION 1: HERO SECTION -->
+    <section class="faq-hero pt-32 pb-20 md:pt-40 md:pb-28 relative">
+        <div class="container mx-auto px-4 max-w-[1300px] relative z-10">
+            <div class="text-center max-w-3xl mx-auto fade-in-up">
+                <div class="inline-flex items-center gap-2 bg-[#4CAF50]/40 backdrop-blur-sm px-5 py-2 rounded-full text-white border border-white/40 mb-6">
+                    <i data-lucide="help-circle" class="w-4 h-4"></i>
+                    <span class="text-xs font-bold tracking-wider uppercase">Got Questions?</span>
+                </div>
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">Frequently Asked <span class="text-[#A5D6A5]">Questions</span></h1>
+                <p class="text-white/95 text-lg md:text-xl max-w-2xl mx-auto">Everything you need to know about zero-waste living, refill stations, and our mission.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: STATS / QUICK FACTS -->
+    <section class="py-16 -mt-10 relative z-20">
+        <div class="container mx-auto px-4 max-w-[1300px]">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+                <div class="stats-card bg-[var(--card-bg)] rounded-2xl p-5 text-center border border-[var(--border-color)] shadow-lg">
+                    <i data-lucide="message-circle" class="w-8 h-8 text-[#4CAF50] mx-auto mb-2"></i>
+                    <div class="text-2xl md:text-3xl font-black text-[#4CAF50]">24/7</div>
+                    <p class="text-xs font-semibold mt-1" style="color: var(--text-primary);">Support Available</p>
+                </div>
+                <div class="stats-card bg-[var(--card-bg)] rounded-2xl p-5 text-center border border-[var(--border-color)] shadow-lg">
+                    <i data-lucide="refresh-cw" class="w-8 h-8 text-[#4CAF50] mx-auto mb-2"></i>
+                    <div class="text-2xl md:text-3xl font-black text-[#4CAF50]">150+</div>
+                    <p class="text-xs font-semibold mt-1" style="color: var(--text-primary);">Refill Products</p>
+                </div>
+                <div class="stats-card bg-[var(--card-bg)] rounded-2xl p-5 text-center border border-[var(--border-color)] shadow-lg">
+                    <i data-lucide="store" class="w-8 h-8 text-[#4CAF50] mx-auto mb-2"></i>
+                    <div class="text-2xl md:text-3xl font-black text-[#4CAF50]">2</div>
+                    <p class="text-xs font-semibold mt-1" style="color: var(--text-primary);">Store Locations</p>
+                </div>
+                <div class="stats-card bg-[var(--card-bg)] rounded-2xl p-5 text-center border border-[var(--border-color)] shadow-lg">
+                    <i data-lucide="users" class="w-8 h-8 text-[#4CAF50] mx-auto mb-2"></i>
+                    <div class="text-2xl md:text-3xl font-black text-[#4CAF50]">12K+</div>
+                    <p class="text-xs font-semibold mt-1" style="color: var(--text-primary);">Happy Refillers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: SEARCH BAR -->
+    <section class="py-8">
+        <div class="container mx-auto px-4 max-w-[800px]">
+            <div class="relative">
+                <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                <input type="text" id="searchInput" placeholder="Search for answers... (e.g., refill, containers, bulk, pricing)" class="w-full pl-12 pr-4 py-4 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-primary)] text-[var(--text-primary)] focus:border-[#4CAF50] focus:outline-none transition">
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: CATEGORY FILTERS -->
+    <section class="py-4">
+        <div class="container mx-auto px-4 max-w-[1300px]">
+            <div class="flex flex-wrap justify-center gap-3">
+                <button onclick="filterCategory('all')" id="catAll" class="category-btn active-category px-5 py-2.5 rounded-full border-2 border-[#4CAF50] text-[#4CAF50] font-semibold transition-all">All Questions</button>
+                <button onclick="filterCategory('getting-started')" id="catGettingStarted" class="category-btn px-5 py-2.5 rounded-full border-2 border-gray-300 dark:border-gray-600 text-[var(--text-primary)] font-semibold transition-all">Getting Started</button>
+                <button onclick="filterCategory('refill-process')" id="catRefill" class="category-btn px-5 py-2.5 rounded-full border-2 border-gray-300 dark:border-gray-600 text-[var(--text-primary)] font-semibold transition-all">Refill Process</button>
+                <button onclick="filterCategory('products')" id="catProducts" class="category-btn px-5 py-2.5 rounded-full border-2 border-gray-300 dark:border-gray-600 text-[var(--text-primary)] font-semibold transition-all">Products & Pricing</button>
+                <button onclick="filterCategory('sustainability')" id="catSustainability" class="category-btn px-5 py-2.5 rounded-full border-2 border-gray-300 dark:border-gray-600 text-[var(--text-primary)] font-semibold transition-all">Sustainability</button>
+                <button onclick="filterCategory('store-info')" id="catStore" class="category-btn px-5 py-2.5 rounded-full border-2 border-gray-300 dark:border-gray-600 text-[var(--text-primary)] font-semibold transition-all">Store Info</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: FAQ ACCORDION -->
+    <section class="py-12 pb-20">
+        <div class="container mx-auto px-4 max-w-[1000px]">
+            <div id="faqContainer" class="space-y-4"></div>
+            <div id="noResults" class="text-center py-12 hidden">
+                <i data-lucide="search-x" class="w-16 h-16 mx-auto text-gray-400 mb-4"></i>
+                <p class="text-gray-500 dark:text-gray-400 text-lg">No questions found matching your search.</p>
+                <p class="text-gray-400 text-sm mt-2">Try different keywords or browse all categories</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: STILL HAVE QUESTIONS? CTA -->
+    <section class="py-16 bg-gradient-to-r from-[#0A2F0A] to-[#2E4A2E]">
+        <div class="container mx-auto px-4 max-w-[900px] text-center">
+            <i data-lucide="mail-question" class="w-16 h-16 text-white mx-auto mb-5"></i>
+            <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Still Have Questions?</h2>
+            <p class="text-white/80 text-lg mb-8">Can't find what you're looking for? Our team is here to help you on your zero-waste journey.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#4CAF50] rounded-full font-bold text-lg hover:bg-gray-100 transition-all shadow-xl">Contact Support <i data-lucide="arrow-right" class="w-5 h-5"></i></a>
+                <a href="#" class="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white/20 transition-all">Live Chat <i data-lucide="message-circle" class="w-5 h-5"></i></a>
+            </div>
+            <p class="text-white/60 text-sm mt-6">Average response time: &lt; 24 hours</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="pt-16 pb-8">
+        <div class="container mx-auto px-4 md:px-8 max-w-[1300px]">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="space-y-6">
+                    <a href="#" class="logo-brand flex items-center gap-2">
+                        <i data-lucide="droplets" class="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 logo-icon"></i>
+                        <span class="text-2xl sm:text-3xl font-black tracking-tight"><span class="logo-text">Eco</span><span class="logo-text">Refill</span></span>
+                    </a>
+                    <p class="text-sm leading-relaxed">Zero-waste grocery & refill store. Bring your own containers, pay by weight, and join the plastic-free movement.</p>
+                </div>
+                <div><h4 class="text-lg font-black uppercase tracking-widest mb-6">Company</h4><ul class="space-y-3"><li><a href="index.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Home</a></li><li><a href="about.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">About Us</a></li><li><a href="refill.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Refill Stations</a></li><li><a href="gallery.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Gallery</a></li><li><a href="contact.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Contact</a></li></ul></div>
+                <div><h4 class="text-lg font-black uppercase tracking-widest mb-6">Resources</h4><ul class="space-y-3"><li><a href="#" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Zero-Waste Guide</a></li><li><a href="#" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Bulk Catalog</a></li><li><a href="#" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Composting 101</a></li><li><a href="blog.html" class="text-sm font-medium transition-colors hover:text-[#4CAF50]">Blog</a></li></ul></div>
+                <div><h4 class="text-lg font-black uppercase tracking-widest mb-6">Contact</h4><ul class="space-y-4"><li class="flex gap-3 items-start contact-item"><i data-lucide="phone" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">+1 (888) 554-1278</span></li><li class="flex gap-3 items-start contact-item"><i data-lucide="mail" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">hello@Ecoandrefill.com</span></li><li class="flex gap-3 items-start contact-item"><i data-lucide="map-pin" class="w-5 h-5 shrink-0 mt-0.5"></i><span class="text-sm">Portland, ME & Brooklyn, NY</span></li></ul></div>
+            </div>
+            <div class="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4"><p class="text-xs font-medium">© 2026 Eco & Refill — Zero-Waste Grocery & Refill. All Rights Reserved.</p><div class="flex gap-6"><a href="#" class="text-xs font-medium transition-colors hover:text-[#4CAF50]">Privacy Policy</a><a href="#" class="text-xs font-medium transition-colors hover:text-[#4CAF50]">Terms of Service</a><a href="#" class="text-xs font-medium transition-colors hover:text-[#CAF50]">Sitemap</a></div></div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Data
+        const faqData = [
+            { id: 1, category: "getting-started", question: "How do I start refilling at EcoRefill?", answer: "It's simple! Just bring your clean, dry containers to any of our stores. We'll weigh them empty (tare), then you fill up with our bulk products. Pay by weight at checkout. First-time customers can also purchase starter glass jars at our stores." },
+            { id: 2, category: "getting-started", question: "Do I need to bring my own containers?", answer: "While we encourage you to bring your own clean containers to reduce waste, we also have recycled glass jars and compostable bags available for purchase if you forget yours or are just starting out." },
+            { id: 3, category: "getting-started", question: "Is there a membership or loyalty program?", answer: "Yes! Join our free EcoRewards program to earn points on every refill. Points can be redeemed for discounts, free products, and exclusive workshop access. Sign up in-store or on our website." },
+            { id: 4, category: "refill-process", question: "How does the tare (container weighing) process work?", answer: "We weigh your empty containers before filling, record the weight, then after you fill, we subtract the container weight so you only pay for the product. Our digital scales make this quick and accurate." },
+            { id: 5, category: "refill-process", question: "Can I refill any type of container?", answer: "We accept clean, dry containers of any size — glass jars, plastic containers, stainless steel, etc. Just make sure they're thoroughly cleaned and completely dry to maintain product freshness." },
+            { id: 6, category: "refill-process", question: "How do you ensure product freshness and cleanliness?", answer: "We use high-quality, sealed bulk bins with easy-flow dispensers. Our staff cleans all bins daily, and we rotate stock regularly to ensure maximum freshness. All products are from trusted organic suppliers." },
+            { id: 7, category: "products", question: "What products do you offer for refill?", answer: "We offer over 150+ bulk items including: organic grains (rice, quinoa, oats), nuts & seeds, dried fruits, spices, coffee & teas, olive oil & vinegars, maple syrup, honey, laundry detergent, dish soap, shampoo, conditioner, and more!" },
+            { id: 8, category: "products", question: "Are your products organic and ethically sourced?", answer: "Yes! We prioritize organic, fair-trade, and locally-sourced products whenever possible. Over 90% of our offerings are certified organic, and we work directly with farmers and ethical suppliers." },
+            { id: 9, category: "products", question: "How does pricing work? Is it cheaper than packaged goods?", answer: "You pay by weight, so you only buy what you need — often 15-30% cheaper than pre-packaged alternatives because you're not paying for packaging. Plus, you reduce waste!" },
+            { id: 10, category: "sustainability", question: "What impact has EcoRefill made on plastic waste?", answer: "To date, our community has prevented over 34,000 lbs of plastic waste from entering landfills and oceans. That's over 500,000 single-use containers saved!" },
+            { id: 11, category: "sustainability", question: "How do you source your products sustainably?", answer: "We partner with local farms within 150 miles for fresh seasonal items, and for non-local products, we work with B-Corp certified suppliers who prioritize ethical labor, regenerative agriculture, and minimal packaging." },
+            { id: 12, category: "sustainability", question: "Do you offer composting services?", answer: "Yes! We partner with local composting facilities. You can drop off food scraps at our stores during business hours. Ask our staff for a free compost starter guide." },
+            { id: 13, category: "store-info", question: "Where are your store locations?", answer: "We currently have two locations: Portland, ME (123 Greenway Avenue) and Brooklyn, NY (456 Refill Lane, Williamsburg). Both stores offer full refill stations and workshops." },
+            { id: 14, category: "store-info", question: "What are your store hours?", answer: "Monday - Saturday: 9:00 AM - 8:00 PM, Sunday: 10:00 AM - 5:00 PM. We're closed on major holidays." },
+            { id: 15, category: "store-info", question: "Do you offer delivery or online ordering?", answer: "Yes! We offer local delivery within 10 miles of our stores. We also have a curated selection of zero-waste products available for nationwide shipping on our Market page." },
+            { id: 16, category: "refill-process", question: "Can I bring multiple containers for different products?", answer: "Absolutely! Many customers bring several containers for different items. We have a dedicated filling station and staff to help you organize your refill session." },
+            { id: 17, category: "products", question: "Do you offer sample sizes?", answer: "Yes! We have small sample jars available so you can try new products before committing to a larger quantity. Perfect for testing spices, oils, or personal care items." },
+            { id: 18, category: "getting-started", question: "Do you offer workshops or classes?", answer: "Yes! We host free monthly workshops on composting, DIY cleaning products, zero-waste cooking, and more. Check our Events page or follow us on Instagram for upcoming dates." }
+        ];
+
+        let currentCategory = 'all';
+        let currentSearch = '';
+
+        function renderFAQ() {
+            const container = document.getElementById('faqContainer');
+            const noResults = document.getElementById('noResults');
+            
+            let filtered = faqData;
+            
+            if (currentCategory !== 'all') {
+                filtered = filtered.filter(item => item.category === currentCategory);
+            }
+            
+            if (currentSearch.trim() !== '') {
+                const searchTerm = currentSearch.toLowerCase();
+                filtered = filtered.filter(item => 
+                    item.question.toLowerCase().includes(searchTerm) || 
+                    item.answer.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            if (filtered.length === 0) {
+                container.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+            
+            noResults.classList.add('hidden');
+            
+            function highlightText(text, search) {
+                if (!search.trim()) return text;
+                const regex = new RegExp(`(${search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+                return text.replace(regex, '<span class="search-highlight">$1</span>');
+            }
+            
+            container.innerHTML = filtered.map((item, index) => `
+                <div class="faq-accordion-item rounded-2xl overflow-hidden" data-id="${item.id}">
+                    <button onclick="toggleAccordion(${item.id})" class="faq-question-btn w-full text-left p-5 md:p-6 font-semibold flex justify-between items-center" style="color: var(--text-primary);">
+                        <span class="text-base md:text-lg pr-4">${highlightText(item.question, currentSearch)}</span>
+                        <i data-lucide="chevron-down" id="faqIcon${item.id}" class="w-5 h-5 transition-transform duration-300 flex-shrink-0"></i>
+                    </button>
+                    <div id="faqAnswer${item.id}" class="faq-answer px-5 md:px-6 pb-0 max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="text-gray-500 dark:text-gray-400 pb-5 leading-relaxed">${highlightText(item.answer, currentSearch)}</p>
+                    </div>
+                </div>
+            `).join('');
+            
+            setTimeout(() => lucide.createIcons(), 50);
+        }
+        
+        function toggleAccordion(id) {
+            const answer = document.getElementById(`faqAnswer${id}`);
+            const icon = document.getElementById(`faqIcon${id}`);
+            
+            if (answer.classList.contains('max-h-0')) {
+                document.querySelectorAll('[id^="faqAnswer"]').forEach(el => {
+                    if (el.id !== `faqAnswer${id}`) {
+                        el.classList.add('max-h-0');
+                        el.classList.remove('max-h-[500px]', 'pb-5');
+                        const otherIcon = document.getElementById(el.id.replace('faqAnswer', 'faqIcon'));
+                        if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                    }
+                });
+                
+                answer.classList.remove('max-h-0');
+                answer.classList.add('max-h-[500px]', 'pb-5');
+                if (icon) icon.style.transform = 'rotate(180deg)';
+            } else {
+                answer.classList.add('max-h-0');
+                answer.classList.remove('max-h-[500px]', 'pb-5');
+                if (icon) icon.style.transform = 'rotate(0deg)';
+            }
+        }
+        
+        function filterCategory(category) {
+            currentCategory = category;
+            currentSearch = document.getElementById('searchInput').value;
+            
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active-category', 'bg-[#4CAF50]', 'text-white', 'border-[#4CAF50]');
+                btn.classList.add('border-gray-300', 'dark:border-gray-600');
+            });
+            
+            const activeBtn = document.getElementById(`cat${category.charAt(0).toUpperCase() + category.slice(1)}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active-category', 'bg-[#4CAF50]', 'text-white', 'border-[#4CAF50]');
+                activeBtn.classList.remove('border-gray-300', 'dark:border-gray-600');
+            } else if (category === 'all') {
+                const allBtn = document.getElementById('catAll');
+                allBtn.classList.add('active-category', 'bg-[#4CAF50]', 'text-white', 'border-[#4CAF50]');
+                allBtn.classList.remove('border-gray-300', 'dark:border-gray-600');
+            }
+            
+            renderFAQ();
+        }
+        
+        function handleSearch() {
+            currentSearch = document.getElementById('searchInput').value;
+            renderFAQ();
+        }
+        
+        // Navigation Functions with proper RTL support
+        function toggleDropdown(menuId, e) { 
+            if(e) e.stopPropagation(); 
+            document.querySelectorAll('.dropdown-content').forEach(d => { 
+                if(d.id !== menuId) d.classList.remove('show'); 
+            }); 
+            const m = document.getElementById(menuId); 
+            if(m) m.classList.toggle('show'); 
+        }
+        
+        window.addEventListener('click', () => { 
+            document.querySelectorAll('.dropdown-content').forEach(d => d.classList.remove('show')); 
+        });
+        
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            mobileMenu.classList.toggle('open');
+            overlay.classList.toggle('active');
+            document.body.classList.toggle('menu-open', mobileMenu.classList.contains('open'));
+        }
+        
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            mobileMenu.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        }
+        
+        function toggleMobileSubmenu(id) { 
+            const sub = document.getElementById(id); 
+            if(!sub) return; 
+            const parentBtn = sub.previousElementSibling;
+            const icon = parentBtn?.querySelector('i[data-lucide="chevron-down"]');
+            sub.classList.toggle('open'); 
+            if(icon) icon.style.transform = sub.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)'; 
+            setTimeout(() => lucide.createIcons(), 10); 
+        }
+        
+        function toggleTheme() { 
+            document.documentElement.classList.toggle('dark'); 
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); 
+            setTimeout(() => lucide.createIcons(), 10); 
+        }
+        
+        function toggleDirection() { 
+            const html = document.documentElement; 
+            const dirTextDesktop = document.getElementById('dirTextDesktop'); 
+            const mobileDirText = document.getElementById('mobileDirText');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            // Close mobile menu before changing direction to avoid visual glitches
+            if (mobileMenu && mobileMenu.classList.contains('open')) {
+                closeMobileMenu();
+            }
+            
+            if (html.dir === 'rtl') { 
+                html.dir = 'ltr'; 
+                if(dirTextDesktop) dirTextDesktop.innerText = 'LTR'; 
+                if(mobileDirText) mobileDirText.innerText = 'LTR'; 
+            } else { 
+                html.dir = 'rtl'; 
+                if(dirTextDesktop) dirTextDesktop.innerText = 'RTL'; 
+                if(mobileDirText) mobileDirText.innerText = 'RTL'; 
+            } 
+            setTimeout(() => { lucide.createIcons(); }, 50); 
+        }
+        
+        function toggleDirectionMobile() { toggleDirection(); }
+        
+        if (localStorage.getItem('theme') === 'dark') { 
+            document.documentElement.classList.add('dark'); 
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => { 
+            lucide.createIcons();
+            renderFAQ();
+            
+            // Ensure mobile menu is closed on page load
+            const mobileMenu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            if(mobileMenu) mobileMenu.classList.remove('open');
+            if(overlay) overlay.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', handleSearch);
+        });
+    </script>
+</body>
+</html>
