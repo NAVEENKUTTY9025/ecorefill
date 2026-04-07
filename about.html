@@ -653,18 +653,18 @@
             <div class="desktop-controls-wrapper items-center gap-2 shrink-0">
                 <button onclick="toggleDirection()" class="desktop-control-btn">
                     <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
-                    <span id="dirTextDesktop">LTR</span>
+                    <span id="dirTextDesktop"></span>
                 </button>
                 <button onclick="toggleTheme()" class="desktop-control-btn">
                     <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
                     <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-yellow-400"></i>
-                    <span class="dark:hidden">Dark</span>
-                    <span class="hidden dark:inline">Light</span>
+                     <span class="dark:hidden"></span>
+                    <span class="hidden dark:inline"></span>
                 </button>
                 <div class="relative">
                     <button onclick="toggleDropdown('userMenuDesktop', event)" class="desktop-control-btn">
                         <i data-lucide="user" class="w-4 h-4"></i>
-                        <span>Account</span>
+                        <span></span>
                         <i data-lucide="chevron-down" class="w-3 h-3"></i>
                     </button>
                     <div id="userMenuDesktop" class="dropdown-content absolute right-0 top-full mt-2 w-40 shadow-xl rounded-lg border overflow-hidden z-50" style="background-color: var(--card-bg);">
@@ -764,85 +764,112 @@
     </section>
 
     <!-- TIMELINE JOURNEY SECTION - PERFECT ALIGNMENT -->
-    <section id="journey" class="wave-section py-24">
-        <div class="container-custom">
-            <div class="text-center mb-16">
-                <i data-lucide="clock" class="w-14 h-14 text-[#4CAF50] mx-auto mb-4"></i>
-                <h2 class="text-3xl md:text-4xl font-extrabold" style="color: var(--text-primary);">The Journey to Zero Waste</h2>
-                <div class="w-24 h-1 bg-[#4CAF50] mx-auto mt-4 rounded-full"></div>
-                <p class="text-gray-500 dark:text-gray-400 mt-4">From a small refill station to a movement — our milestones</p>
-            </div>
-            
-            <div class="journey-timeline">
-                <!-- Vertical line (position controlled by CSS) -->
-                <div class="timeline-vertical-line"></div>
-                
-                <!-- 2020 -->
-                <div class="timeline-item-wrapper">
-                    <div class="timeline-year-col">
-                        <div class="timeline-year-dot">
-                            <div class="timeline-dot-circle"></div>
-                            <span class="timeline-year-number">2020</span>
-                        </div>
-                    </div>
-                    <div class="timeline-content-col">
-                        <div class="timeline-card">
-                            <h3 class="timeline-title">The First Refill Station</h3>
-                            <p class="timeline-desc">Started in a 200sq ft space with 15 bulk bins. First month: 47 customers. Today: 12,000+ members strong. The seed of a zero-waste revolution was planted.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 2022 -->
-                <div class="timeline-item-wrapper">
-                    <div class="timeline-year-col">
-                        <div class="timeline-year-dot">
-                            <div class="timeline-dot-circle"></div>
-                            <span class="timeline-year-number">2022</span>
-                        </div>
-                    </div>
-                    <div class="timeline-content-col">
-                        <div class="timeline-card">
-                            <h3 class="timeline-title">Community Workshops Launch</h3>
-                            <p class="timeline-desc">Free composting classes, DIY cleaning product workshops, and school programs reached 3,500+ families. Building a knowledgeable, empowered community.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 2024 -->
-                <div class="timeline-item-wrapper">
-                    <div class="timeline-year-col">
-                        <div class="timeline-year-dot">
-                            <div class="timeline-dot-circle"></div>
-                            <span class="timeline-year-number">2024</span>
-                        </div>
-                    </div>
-                    <div class="timeline-content-col">
-                        <div class="timeline-card">
-                            <h3 class="timeline-title">Second Location & Impact Milestone</h3>
-                            <p class="timeline-desc">Brooklyn store opens. Surpassed 30,000kg plastic waste prevented. Named "Best Sustainable Business" 2024. Doubled our community reach.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 2025+ -->
-                <div class="timeline-item-wrapper">
-                    <div class="timeline-year-col">
-                        <div class="timeline-year-dot">
-                            <div class="timeline-dot-circle"></div>
-                            <span class="timeline-year-number">2025+</span>
-                        </div>
-                    </div>
-                    <div class="timeline-content-col">
-                        <div class="timeline-card">
-                            <h3 class="timeline-title">The Circular Future</h3>
-                            <p class="timeline-desc">Expanding to 5 new cities, launching mobile refill trucks, and our proprietary zero-waste certification program. The revolution continues.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+   <section id="journey" class="wave-section py-24">
+    <div class="container-custom">
+        
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <i data-lucide="clock" class="w-14 h-14 text-[#4CAF50] mx-auto mb-4"></i>
+            <h2 class="text-3xl md:text-4xl font-extrabold" style="color: var(--text-primary);">The Journey to Zero Waste</h2>
+            <div class="w-24 h-1 bg-[#4CAF50] mx-auto mt-4 rounded-full"></div>
+            <p class="text-gray-500 dark:text-gray-400 mt-4">From a small refill station to a movement — our milestones</p>
         </div>
-    </section>
+
+        <!-- Timeline -->
+        <div class="relative max-w-6xl mx-auto">
+
+            <!-- Line (left mobile, center desktop) -->
+            <div class="absolute top-0 h-full w-[2px] bg-[#4CAF50]/30 left-5 md:left-1/2 md:-translate-x-1/2"></div>
+
+            <!-- ITEM -->
+            <div class="grid grid-cols-1 md:grid-cols-3 items-center mb-12 relative">
+
+                <!-- Left -->
+                <div class="hidden md:block"></div>
+
+                <!-- Year -->
+                <div class="absolute left-5 md:static md:flex md:justify-center z-10">
+                    <div class="bg-[#4CAF50] text-white text-xs md:text-sm font-bold px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-lg -translate-x-1/2 md:translate-x-0">
+                        2020
+                    </div>
+                </div>
+
+                <!-- Right -->
+                <div class="pl-12 md:pl-0">
+                    <div class="p-6 rounded-2xl bg-[var(--card-bg)] border border-[var(--border-color)] shadow-lg">
+                        <h3 class="font-bold text-lg mb-2" style="color: var(--text-primary);">The First Refill Station</h3>
+                        <p class="text-sm text-gray-500">Started in a 200sq ft space with 15 bulk bins. First month: 47 customers. Today: 12,000+ members strong.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ITEM -->
+            <div class="grid grid-cols-1 md:grid-cols-3 items-center mb-12 relative">
+
+                <!-- Left -->
+                <div class="pl-12 md:pl-0">
+                    <div class="p-6 rounded-2xl bg-[var(--card-bg)] border border-[var(--border-color)] shadow-lg">
+                        <h3 class="font-bold text-lg mb-2" style="color: var(--text-primary);">Community Workshops Launch</h3>
+                        <p class="text-sm text-gray-500">Free composting classes, DIY workshops, and school programs reached 3,500+ families.</p>
+                    </div>
+                </div>
+
+                <!-- Year -->
+                <div class="absolute left-5 md:static md:flex md:justify-center z-10">
+                    <div class="bg-[#4CAF50] text-white text-xs md:text-sm font-bold px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-lg -translate-x-1/2 md:translate-x-0">
+                        2022
+                    </div>
+                </div>
+
+                <!-- Right -->
+                <div class="hidden md:block"></div>
+
+            </div>
+
+            <!-- ITEM -->
+            <div class="grid grid-cols-1 md:grid-cols-3 items-center mb-12 relative">
+
+                <div class="hidden md:block"></div>
+
+                <div class="absolute left-5 md:static md:flex md:justify-center z-10">
+                    <div class="bg-[#4CAF50] text-white text-xs md:text-sm font-bold px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-lg -translate-x-1/2 md:translate-x-0">
+                        2024
+                    </div>
+                </div>
+
+                <div class="pl-12 md:pl-0">
+                    <div class="p-6 rounded-2xl bg-[var(--card-bg)] border border-[var(--border-color)] shadow-lg">
+                        <h3 class="font-bold text-lg mb-2" style="color: var(--text-primary);">Second Location & Impact</h3>
+                        <p class="text-sm text-gray-500">Brooklyn store opens. 30,000kg plastic waste prevented. Award-winning sustainability impact.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ITEM -->
+            <div class="grid grid-cols-1 md:grid-cols-3 items-center relative">
+
+                <div class="pl-12 md:pl-0">
+                    <div class="p-6 rounded-2xl bg-[var(--card-bg)] border border-[var(--border-color)] shadow-lg">
+                        <h3 class="font-bold text-lg mb-2" style="color: var(--text-primary);">The Circular Future</h3>
+                        <p class="text-sm text-gray-500">Expanding to 5 cities, launching mobile refill trucks, and certification programs.</p>
+                    </div>
+                </div>
+
+                <div class="absolute left-5 md:static md:flex md:justify-center z-10">
+                    <div class="bg-[#4CAF50] text-white text-xs md:text-sm font-bold px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-lg -translate-x-1/2 md:translate-x-0">
+                        2025
+                    </div>
+                </div>
+
+                <div class="hidden md:block"></div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
 
     <!-- IMPACT STATS -->
     <section id="impact" class="stats-grid py-24">
