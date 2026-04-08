@@ -174,15 +174,22 @@
             color: #F5F5F5 !important;
         }
         
-        .nav-link:hover, .nav-link.active {
-            background-color: #4CAF50 !important;
-            color: white !important;
-        }
-        
-        .nav-link.active-page {
-            background-color: #4CAF50 !important;
-            color: white !important;
-        }
+       /* Default */
+.nav-link {
+    color: var(--text-primary) !important;
+}
+
+/* Hover - only text color */
+.nav-link:hover {
+    color: #4CAF50 !important;
+    background-color: transparent !important;
+}
+
+/* Active page - only text color */
+.nav-link.active-page {
+    color: #4CAF50 !important;
+    background-color: transparent !important;
+}
         
         .desktop-control-btn {
             display: inline-flex;
@@ -375,11 +382,23 @@
             text-align: right;
         }
         
-        .mobile-nav-link.active-mobile {
-            background-color: #4CAF50 !important;
-            color: white !important;
-        }
-        .mobile-nav-link:hover { background-color: #4CAF50 !important; color: white !important; }
+      /* Default */
+.mobile-nav-link {
+    color: var(--text-primary) !important;
+    background: transparent !important;
+}
+
+/* Hover → only text color */
+.mobile-nav-link:hover {
+    color: #4CAF50 !important;
+    background: transparent !important;
+}
+
+/* Active → only text color */
+.mobile-nav-link.active-mobile {
+    color: #4CAF50 !important;
+    background: transparent !important;
+}
         .mobile-submenu {
             display: none; 
             flex-direction: column; 
@@ -700,16 +719,66 @@
         </div>
     </section>
 
-    <section class="py-24 section-5-bg">
-        <div class="container mx-auto px-4 max-w-[1300px]">
-            <div class="text-center mb-12"><i data-lucide="message-circle" class="w-12 h-12 text-[#4CAF50] mx-auto"></i><h2 class="text-3xl md:text-4xl font-bold" style="color: #1A1A1A;">Our Refill Community Speaks</h2></div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl relative card-hover testimonial-card"><div class="absolute -top-4 left-8 text-5xl text-[#4CAF50]">“</div><p class="text-gray-700 dark:text-gray-300 italic mt-6">Eco & Refill changed my life! I've reduced my household waste by 90%.</p><p class="font-bold mt-6 text-[#4CAF50]">— Maya S.</p></div>
-                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl card-hover testimonial-card relative"><div class="absolute -top-4 left-8 text-5xl text-[#4CAF50]">“</div><p class="text-gray-700 dark:text-gray-300 italic mt-6">Finally a grocery store that aligns with my values. Love the workshops!</p><p class="font-bold mt-6 text-[#4CAF50]">— David K.</p></div>
-                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl card-hover testimonial-card relative"><div class="absolute -top-4 left-8 text-5xl text-[#4CAF50]">“</div><p class="text-gray-700 dark:text-gray-300 italic mt-6">The refill station is so clean, organized, and staff are super helpful.</p><p class="font-bold mt-6 text-[#4CAF50]">— Emma & Tom</p></div>
-            </div>
+  <section class="py-20 section-5-bg">
+    <div class="container mx-auto px-4 max-w-[1300px]">
+
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <i data-lucide="message-circle" class="w-10 h-10 text-[#4CAF50] mx-auto mb-2"></i>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold" style="color: #1A1A1A;">
+                Our Refill Community Speaks
+            </h2>
         </div>
-    </section>
+
+        <!-- Grid -->
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 items-stretch">
+
+            <!-- Card 1 -->
+            <div class="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-xl relative card-hover testimonial-card h-full flex flex-col justify-between">
+                
+                <div>
+                    <div class="absolute -top-4 left-6 text-4xl sm:text-5xl text-[#4CAF50]">“</div>
+                    <p class="text-gray-700 dark:text-gray-300 italic mt-6">
+                        Eco & Refill changed my life! I've reduced my household waste by 90%.
+                    </p>
+                </div>
+
+                <p class="font-bold mt-6 text-[#4CAF50]">— Maya S.</p>
+
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-xl relative card-hover testimonial-card h-full flex flex-col justify-between">
+                
+                <div>
+                    <div class="absolute -top-4 left-6 text-4xl sm:text-5xl text-[#4CAF50]">“</div>
+                    <p class="text-gray-700 dark:text-gray-300 italic mt-6">
+                        Finally a grocery store that aligns with my values. Love the workshops!
+                    </p>
+                </div>
+
+                <p class="font-bold mt-6 text-[#4CAF50]">— David K.</p>
+
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-xl relative card-hover testimonial-card h-full flex flex-col justify-between">
+                
+                <div>
+                    <div class="absolute -top-4 left-6 text-4xl sm:text-5xl text-[#4CAF50]">“</div>
+                    <p class="text-gray-700 dark:text-gray-300 italic mt-6">
+                        The refill station is so clean, organized, and staff are super helpful.
+                    </p>
+                </div>
+
+                <p class="font-bold mt-6 text-[#4CAF50]">— Emma & Tom</p>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
 
     <footer class="pt-16 pb-8">
         <div class="container mx-auto px-4 md:px-8 max-w-[1300px]">
@@ -801,6 +870,14 @@
             if(overlay) overlay.classList.remove('active');
             document.body.classList.remove('menu-open');
         });
+       
+    const currentPage = window.location.pathname.split("/").pop();
+    document.querySelectorAll(".nav-link").forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active-page");
+        }
+    });
+
     </script>
 </body>
 </html>

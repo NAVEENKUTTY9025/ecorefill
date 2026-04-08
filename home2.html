@@ -137,8 +137,22 @@
             white-space: nowrap;
         }
         
-        .nav-link:hover, .nav-link.active { background-color: #4CAF50 !important; color: white !important; }
-        .nav-link.active-page { background-color: #4CAF50 !important; color: white !important; }
+      /* Default */
+.nav-link {
+    color: var(--text-primary) !important;
+}
+
+/* Hover - only text color */
+.nav-link:hover {
+    color: #4CAF50 !important;
+    background-color: transparent !important;
+}
+
+/* Active page - only text color */
+.nav-link.active-page {
+    color: #4CAF50 !important;
+    background-color: transparent !important;
+}
         
         .desktop-control-btn {
             display: inline-flex;
@@ -429,55 +443,59 @@
     </div>
 
     <!-- HERO SECTION - NEW DESIGN -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 hero-pattern text-center">
-    
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 hero-pattern text-center">
+
     <!-- Background -->
     <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1445308394109-7ec292098a0b?w=1920&h=1080&fit=crop" class="w-full h-full object-cover" alt="Nature and sustainability">
-        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
+        <img src="https://images.unsplash.com/photo-1445308394109-7ec292098a0b?w=1920&h=1080&fit=crop"
+             class="w-full h-full object-cover"
+             alt="Nature and sustainability">
+
+        <!-- Single Color Overlay (no gradient, no white) -->
+        <div class="absolute inset-0 bg-black/70"></div>
     </div>
 
     <!-- Centered Content -->
     <div class="relative z-10 px-4 sm:px-6 lg:px-8 py-20 w-full max-w-3xl mx-auto flex flex-col items-center justify-center">
-        
-        <!-- Badge -->
-       
+
         <!-- Heading -->
-        <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold text-white leading-tight mb-6 animate-slide-up">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6">
             Choose <span class="text-[#4CAF50]">Better.</span><br>
             Choose <span class="text-[#4CAF50]">Zero Waste.</span>
         </h1>
 
         <!-- Paragraph -->
-        <p class="text-white/90 text-lg md:text-xl max-w-xl mb-8 animate-slide-up">
+        <p class="text-white/90 text-base sm:text-lg md:text-xl max-w-xl mb-8">
             Every refill is a step toward a cleaner planet. Join thousands of eco-conscious shoppers reducing plastic waste, one container at a time.
         </p>
 
         <!-- Buttons -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
-            <a href="refill.html" class="px-8 py-4 bg-[#4CAF50] text-white rounded-xl font-bold shadow-lg hover:bg-[#3d8b40] transition-all inline-flex items-center gap-2 group">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
+            <a href="refill.html"
+               class="px-6 sm:px-8 py-3 sm:py-4 bg-[#4CAF50] text-white rounded-xl font-bold shadow-lg hover:bg-[#3d8b40] transition-all inline-flex items-center justify-center gap-2 group">
                 Start Refilling 
                 <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
             </a>
 
-            <a href="#impact" class="px-8 py-4 border-2 border-white/70 text-white rounded-xl font-bold hover:bg-white/20 transition-all backdrop-blur-sm">
+            <a href="#impact"
+               class="px-6 sm:px-8 py-3 sm:py-4 border border-white/50 text-white rounded-xl font-bold hover:bg-white/10 transition-all backdrop-blur-sm">
                 See Our Impact
             </a>
         </div>
 
         <!-- Stats -->
-        <div class="flex flex-wrap justify-center gap-8 mt-12 animate-slide-up text-center">
+        <div class="flex flex-wrap justify-center gap-6 sm:gap-8 mt-10 text-center">
             <div>
-                <div class="stats-number text-white">12K+</div>
-                <div class="text-white/70 text-sm">Plastic kg saved</div>
+                <div class="text-2xl sm:text-3xl font-bold text-white">12K+</div>
+                <div class="text-white/70 text-xs sm:text-sm">Plastic kg saved</div>
             </div>
             <div>
-                <div class="stats-number text-white">8.5K</div>
-                <div class="text-white/70 text-sm">Active members</div>
+                <div class="text-2xl sm:text-3xl font-bold text-white">8.5K</div>
+                <div class="text-white/70 text-xs sm:text-sm">Active members</div>
             </div>
             <div>
-                <div class="stats-number text-white">40%</div>
-                <div class="text-white/70 text-sm">Average savings</div>
+                <div class="text-2xl sm:text-3xl font-bold text-white">40%</div>
+                <div class="text-white/70 text-xs sm:text-sm">Average savings</div>
             </div>
         </div>
 
@@ -486,7 +504,9 @@
     <!-- Bottom Wave -->
     <div class="absolute bottom-0 left-0 right-0">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" class="w-full">
-            <path fill="var(--bg-primary)" fill-opacity="1" d="M0,32L48,42.7C96,53,192,75,288,80C384,85,480,75,576,69.3C672,64,768,64,864,74.7C960,85,1056,107,1152,106.7C1248,107,1344,85,1392,74.7L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"></path>
+            <path fill="var(--bg-primary)" fill-opacity="1"
+                  d="M0,32L48,42.7C96,53,192,75,288,80C384,85,480,75,576,69.3C672,64,768,64,864,74.7C960,85,1056,107,1152,106.7C1248,107,1344,85,1392,74.7L1440,64L1440,120L0,120Z">
+            </path>
         </svg>
     </div>
 
@@ -562,15 +582,15 @@
                     <p class="text-gray-600 dark:text-gray-400 text-lg mb-6">Every refill at EcoRefill means less plastic in our oceans, less waste in landfills, and a cleaner future for generations to come.</p>
                     <div class="grid grid-cols-2 gap-6 mb-8">
                         <div class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-md">
-                            <div class="stats-number">234,567</div>
+                            <div class="stats-number">2345</div>
                             <div class="text-sm text-gray-500">Single-use containers avoided</div>
                         </div>
                         <div class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-md">
-                            <div class="stats-number">18,432</div>
+                            <div class="stats-number">1843</div>
                             <div class="text-sm text-gray-500">Active refill members</div>
                         </div>
                         <div class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-md">
-                            <div class="stats-number">2,847</div>
+                            <div class="stats-number">2847</div>
                             <div class="text-sm text-gray-500">Local partnerships</div>
                         </div>
                         <div class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-md">
@@ -623,41 +643,87 @@
     </section>
 
     <!-- TESTIMONIALS - GLASS CARD STYLE -->
-    <section class="py-24" style="background: linear-gradient(135deg, var(--accent-soft) 0%, var(--bg-primary) 100%);">
-        <div class="container mx-auto px-4 max-w-[1300px]">
-            <div class="text-center mb-12">
-                <i data-lucide="message-circle" class="w-12 h-12 text-[#4CAF50] mx-auto"></i>
-                <h2 class="text-3xl md:text-4xl font-bold mt-2">What Our Community Says</h2>
-                <p class="text-gray-500 dark:text-gray-400 mt-2">Real stories from real zero-waste warriors</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass-card rounded-2xl p-8 hover-lift">
-                    <i data-lucide="quote" class="w-8 h-8 text-[#4CAF50] mb-4"></i>
-                    <p class="text-gray-700 dark:text-gray-300 mb-6">"EcoRefill completely changed how I shop. I've reduced my plastic waste by 85% and saved money too!"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-[#4CAF50]/30 rounded-full flex items-center justify-center">⭐</div>
-                        <div><p class="font-bold">Sarah Johnson</p><p class="text-xs text-gray-500">Member since 2024</p></div>
-                    </div>
-                </div>
-                <div class="glass-card rounded-2xl p-8 hover-lift">
-                    <i data-lucide="quote" class="w-8 h-8 text-[#4CAF50] mb-4"></i>
-                    <p class="text-gray-700 dark:text-gray-300 mb-6">"The refill station is always clean, organized, and the staff is incredibly helpful. Love this place!"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-[#4CAF50]/30 rounded-full flex items-center justify-center">⭐</div>
-                        <div><p class="font-bold">Michael Chen</p><p class="text-xs text-gray-500">Weekly refiller</p></div>
-                    </div>
-                </div>
-                <div class="glass-card rounded-2xl p-8 hover-lift">
-                    <i data-lucide="quote" class="w-8 h-8 text-[#4CAF50] mb-4"></i>
-                    <p class="text-gray-700 dark:text-gray-300 mb-6">"Finally a grocery store that aligns with my values. The bulk spices are amazing quality and so affordable."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-[#4CAF50]/30 rounded-full flex items-center justify-center">⭐</div>
-                        <div><p class="font-bold">Elena Rodriguez</p><p class="text-xs text-gray-500">Zero-waste coach</p></div>
-                    </div>
-                </div>
-            </div>
+   <section class="py-20" style="background: linear-gradient(135deg, var(--accent-soft) 0%, var(--bg-primary) 100%);">
+    <div class="container mx-auto px-4 max-w-[1300px]">
+
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <i data-lucide="message-circle" class="w-10 h-10 text-[#4CAF50] mx-auto mb-2"></i>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2">
+                What Our Community Says
+            </h2>
+            <p class="text-sm sm:text-base text-gray-500 dark:text-gray-400 mt-2">
+                Real stories from real zero-waste warriors
+            </p>
         </div>
-    </section>
+
+        <!-- Cards -->
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 items-stretch">
+
+            <!-- Card 1 -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8 hover-lift h-full flex flex-col justify-between">
+                
+                <div>
+                    <i data-lucide="quote" class="w-7 h-7 text-[#4CAF50] mb-4"></i>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">
+                        "EcoRefill completely changed how I shop. I've reduced my plastic waste by 85% and saved money too!"
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-3 mt-auto">
+                    <div class="w-10 h-10 bg-[#4CAF50]/30 rounded-full flex items-center justify-center">⭐</div>
+                    <div>
+                        <p class="font-bold">Sarah Johnson</p>
+                        <p class="text-xs text-gray-500">Member since 2024</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Card 2 -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8 hover-lift h-full flex flex-col justify-between">
+                
+                <div>
+                    <i data-lucide="quote" class="w-7 h-7 text-[#4CAF50] mb-4"></i>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">
+                        "The refill station is always clean, organized, and the staff is incredibly helpful. Love this place!"
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-3 mt-auto">
+                    <div class="w-10 h-10 bg-[#4CAF50]/30 rounded-full flex items-center justify-center">⭐</div>
+                    <div>
+                        <p class="font-bold">Michael Chen</p>
+                        <p class="text-xs text-gray-500">Weekly refiller</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Card 3 -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8 hover-lift h-full flex flex-col justify-between">
+                
+                <div>
+                    <i data-lucide="quote" class="w-7 h-7 text-[#4CAF50] mb-4"></i>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">
+                        "Finally a grocery store that aligns with my values. The bulk spices are amazing quality and so affordable."
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-3 mt-auto">
+                    <div class="w-10 h-10 bg-[#4CAF50]/30 rounded-full flex items-center justify-center">⭐</div>
+                    <div>
+                        <p class="font-bold">Rodriguez</p>
+                        <p class="text-xs text-gray-500">Zero-waste coach</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
 
     <!-- NEWSLETTER + CTA -->
     <section class="py-20" style="background: linear-gradient(135deg, #1F4A1F 0%, #2E7D32 100%);">
@@ -757,6 +823,7 @@
             lucide.createIcons(); 
             closeMobileMenu();
         });
+        
     </script>
 </body>
 </html>

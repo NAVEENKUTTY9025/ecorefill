@@ -173,7 +173,22 @@
         }
         
         .dark .nav-link { color: #F5F5F5 !important; }
-        .nav-link:hover, .nav-link.active-page { background-color: #4CAF50 !important; color: white !important; }
+      /* Default */
+.nav-link {
+    color: var(--text-primary) !important;
+}
+
+/* Hover - only text color */
+.nav-link:hover {
+    color: #4CAF50 !important;
+    background-color: transparent !important;
+}
+
+/* Active page - only text color */
+.nav-link.active-page {
+    color: #4CAF50 !important;
+    background-color: transparent !important;
+}
         
         .desktop-control-btn {
             display: inline-flex;
@@ -589,7 +604,7 @@
                         <i data-lucide="mail" class="w-7 h-7 text-[#4CAF50]"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">Email</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Response within 24 hours</p>
+                    
                     <a href="mailto:hello@Ecoandrefill.com" class="text-[#4CAF50] font-semibold hover:underline mt-2 inline-block">hello@Ecoandrefill.com</a>
                 </div>
                 <div class="contact-card p-6 rounded-2xl bg-[var(--card-bg)] border border-[var(--border-color)] shadow-lg text-center">
